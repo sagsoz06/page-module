@@ -17,7 +17,7 @@ class UpdatePageRequest extends BaseFormRequest
 
     public function translationRules()
     {
-        $id = $this->route()->getParameter('page')->id;
+        $id = $this->route()->parameter('page')->id;
         return [
             'title'            => 'required',
             'slug'             => "required|unique:page__page_translations,slug,$id,page_id,locale,$this->localeKey",
