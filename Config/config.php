@@ -35,7 +35,7 @@ return [
     */
     'relations' => [
         'extension' => function ($self) {
-            return $self->belongsTo(\Modules\PageExtension\Entities\PageExtension::class, 'id', 'page_id')->with(['translations'])->first();
+            return $self->belongsTo(\Modules\Pageextension\Entities\Pageextension::class, 'id', 'page_id')->with(['translations'])->first();
         }
     ],
     /*
