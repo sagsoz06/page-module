@@ -23,11 +23,13 @@
             </textarea>
             {!! $errors->first("{$lang}.body", '<span class="help-block">:message</span>') !!}
         </div>
+        @if(Module::active('Pageextension'))
         <?php if (config('asgard.page.config.partials.translatable.edit') !== []): ?>
             <?php foreach (config('asgard.page.config.partials.translatable.edit') as $partial): ?>
                 @include($partial)
             <?php endforeach; ?>
         <?php endif; ?>
+        @endif
     </div>
     <div class="box-group" id="accordion">
         <!-- we are adding the .panel class so bootstrap.js collapse plugin detects it -->

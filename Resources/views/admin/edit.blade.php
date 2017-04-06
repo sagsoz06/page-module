@@ -33,11 +33,13 @@
                         @include('page::admin.partials.edit-fields', ['lang' => $locale])
                     </div>
                     <?php endforeach; ?>
+                    @if(Module::active('Pageextension'))
                     <?php if (config('asgard.page.config.partials.normal.edit') !== []): ?>
                         <?php foreach (config('asgard.page.config.partials.normal.edit') as $partial): ?>
                             @include($partial)
                         <?php endforeach; ?>
                     <?php endif; ?>
+                    @endif
 
                     <div class="box-footer">
                         <button type="submit" class="btn btn-primary btn-flat" name="button" value="index" >
