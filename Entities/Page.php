@@ -129,7 +129,7 @@ class Page extends Model implements TaggableInterface
     public function getThumbnailAttribute()
     {
         if(isset($this->files()->first()->filename)) {
-            return url(\Imagy::getThumbnail($this->files()->first()->filename, 'pageThumb'));
+            return url(\Imagy::getThumbnail($this->files()->first()->filename, 'pageImage'));
         }
         return null;
     }

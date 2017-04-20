@@ -26,9 +26,9 @@ class SitemapController extends BaseSitemapController
             if(!$page->sitemap_include) continue;
 
             $images = [];
-            if(isset($page->thumbnail))
+            if($page->hasImage())
             {
-                $images[] = ['url' => $page->thumbnail, 'title' => $page->title];
+                $images[] = ['url' => $page->present()->firstImage(500,500,'fit',80), 'title' => $page->title];
             }
             $this->sitemap->add(
                 $page->url,

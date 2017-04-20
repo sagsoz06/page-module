@@ -60,11 +60,13 @@ class PublicController extends BasePublicController
                 ->setTitle($page->present()->og_title)
                 ->setDescription($page->present()->og_description)
                 ->setType($page->og_type)
+                ->setImage($page->present()->og_image)
                 ->setUrl($page->url);
 
             $this->seoCard()
                 ->setTitle($page->present()->og_title)
                 ->setDescription($page->present()->og_description)
+                ->addImage($page->present()->og_image)
                 ->setType('app');
             /* End Seo */
 
