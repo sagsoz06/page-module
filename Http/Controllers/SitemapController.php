@@ -28,7 +28,7 @@ class SitemapController extends BaseSitemapController
             $images = [];
             if($page->hasImage())
             {
-                $images[] = ['url' => $page->present()->firstImage(500,500,'fit',80), 'title' => $page->title];
+                $images[] = ['url' => url($page->present()->firstImage(500,null,'resize',80)), 'title' => $page->title];
             }
             $this->sitemap->add(
                 $page->url,
