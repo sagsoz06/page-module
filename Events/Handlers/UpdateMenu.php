@@ -1,6 +1,5 @@
 <?php namespace Modules\Page\Events\Handlers;
 
-
 use Illuminate\Events\Dispatcher;
 use Modules\Menu\Entities\Menuitem;
 use Modules\Page\Entities\Page;

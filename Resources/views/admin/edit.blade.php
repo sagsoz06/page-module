@@ -81,6 +81,11 @@
                         {!! Form::select("template", $all_templates, old("template", $page->template), ['class' => "form-control", 'placeholder' => trans('page::pages.form.template')]) !!}
                         {!! $errors->first("template", '<span class="help-block">:message</span>') !!}
                     </div>
+                    <div class="form-group">
+                        {!! Form::label("menu", trans('page::pages.form.menu')) !!}
+                        {!! Form::select('menu[]', $menuLists, $selectedMenus, ['class'=>'form-control select2', 'multiple'=>'multiple']) !!}
+                        {!! $errors->first("menu", '<span class="help-block">:message</span>') !!}
+                    </div>
                     @tags('asgardcms/page', $page)
                     @mediaMultiple('pageImage', $page, null, trans('page::pages.form.image'))
                 </div>

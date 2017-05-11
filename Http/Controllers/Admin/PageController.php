@@ -21,6 +21,10 @@ class PageController extends AdminBaseController
     private $file;
 
     private $pageRenderer;
+    /**
+     * @var MenuRepository
+     */
+    private $menu;
 
     public function __construct(
         PageRepository $page,
@@ -34,11 +38,12 @@ class PageController extends AdminBaseController
         $this->page = $page;
         $this->file = $file;
         $this->pageRenderer = $pageRenderer;
+        $this->menu = $menu;
         $this->assetPipeline->requireCss('icheck.blue.css');
-
-        $menuLists = $menu->menuList();
+        $menuLists = $this->menu->menuList();
 
         view()->share('menuLists', $menuLists);
+
     }
 
     public function index()
@@ -85,10 +90,14 @@ class PageController extends AdminBaseController
      */
     public function edit(Page $page)
     {
+        $selectedMenus = $this->menu->all()->keyBy('id')->filter(function($menu) use ($page) {
+           return $menu->menuitems()->where('page_id', $page->id)->where('link_type', 'page')->first();
+        })->keys()->toArray();
+
         $this->assetPipeline->requireJs('ckeditor.js');
         $selectPages = $this->page->allForSelect($page->id);
 
-        return view('page::admin.edit', compact('page', 'selectPages'));
+        return view('page::admin.edit', compact('page', 'selectPages', 'selectedMenus'));
     }
 
     /**

@@ -30,7 +30,7 @@ class MenuObserver
 
     private function _creatingMenu($menuId, $model)
     {
-        if($this->_existMenu($menuId)) {
+        if($this->_existMenu($menuId) && !Menuitem::where('page_id', $model->id)->where('menu_id', $menuId)->first()) {
             $menuItem = new Menuitem();
             $menuItem->menu_id = $menuId;
             $menuItem->page_id = $model->id;
