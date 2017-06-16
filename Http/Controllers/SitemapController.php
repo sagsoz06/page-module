@@ -37,7 +37,7 @@ class SitemapController extends BaseSitemapController
                 $page->sitemap_frequency,
                 $images,
                 null,
-                $page->present()->languages('language')
+                $page->present()->languages('language', 'url', true)
             );
         }
         return $this->sitemap->render('xml');
