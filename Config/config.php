@@ -54,15 +54,9 @@ return [
     'template-ignored-directories' => [
         'layouts',
         'partials',
-        'contact',
-        'blog',
-        'store',
-        'tag',
         'lang',
         'modules',
         'errors',
-        'iletisim-formu',
-        'iletisim-index'
     ],
     /*
     |--------------------------------------------------------------------------

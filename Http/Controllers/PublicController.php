@@ -39,56 +39,44 @@ class PublicController extends BasePublicController
      */
     public function uri($slug)
     {
-        try {
-            $page = $this->findPageForSlug($slug);
+        $page = $this->findPageForSlug($slug);
 
-            $this->throw404IfNotFound($page);
+        $this->throw404IfNotFound($page);
 
-            $template = $this->getTemplateForPage($page);
+        $template = $this->getTemplateForPage($page);
 
-            /* Start Seo */
-            $this->seo()
-                ->setTitle($page->present()->meta_title)
-                ->setDescription($page->present()->meta_description)
-                ->setKeywords($page->present()->keywords)
-                ->meta()
-                ->setUrl($page->url)
-                ->addMeta('robots', $page->robots)
-                ->addAlternates($page->present()->languages);
+        /* Start Seo */
+        $this->seo()
+            ->setTitle($page->present()->meta_title)
+            ->setDescription($page->present()->meta_description)
+            ->setKeywords($page->present()->keywords)
+            ->meta()
+            ->setUrl($page->url)
+            ->addMeta('robots', $page->robots)
+            ->addAlternates($page->present()->languages);
 
-            $this->seoGraph()
-                ->setTitle($page->present()->og_title)
-                ->setDescription($page->present()->og_description)
-                ->setType($page->og_type)
-                ->setImage($page->present()->og_image)
-                ->setUrl($page->url);
+        $this->seoGraph()
+            ->setTitle($page->present()->og_title)
+            ->setDescription($page->present()->og_description)
+            ->setType($page->og_type)
+            ->setImage($page->present()->og_image)
+            ->setUrl($page->url);
 
-            $this->seoCard()
-                ->setTitle($page->present()->og_title)
-                ->setDescription($page->present()->og_description)
-                ->addImage($page->present()->og_image)
-                ->setType('app');
-            /* End Seo */
+        $this->seoCard()
+            ->setTitle($page->present()->og_title)
+            ->setDescription($page->present()->og_description)
+            ->addImage($page->present()->og_image)
+            ->setType('app');
+        /* End Seo */
 
-            /* Start Breadcrumbs */
-            Breadcrumbs::register('page', function ($breadcrumbs) use ($page) {
-                $this->_parentBreadcrumbs($breadcrumbs, $page);
-                $breadcrumbs->push($page->title, $page->url);
-            });
-            /* End Breadcrumbs */
+        /* Start Breadcrumbs */
+        Breadcrumbs::register('page', function ($breadcrumbs) use ($page) {
+            $this->_parentBreadcrumbs($breadcrumbs, $page);
+            $breadcrumbs->push($page->title, $page->url);
+        });
+        /* End Breadcrumbs */
 
-            return view($template, compact('page'));
-        } catch (NotFoundHttpException $exception) {
-            if (strpos($slug, '/')) {
-                $slug = last(explode('/', $slug));
-                if ($page = $this->page->findBySlug($slug)) {
-                    return redirect()->route('page', [$page->uri]);
-                }
-            } else if ($page = $this->page->findBySlug($slug)) {
-                return redirect()->route('page', [$page->uri]);
-            }
-            return $this->app->abort('404');
-        }
+        return view($template, compact('page'));
     }
 
     /**

@@ -3,7 +3,7 @@
 use Illuminate\Routing\Router;
 
 /** @var Router $router */
-//if (! App::runningInConsole()) {
+if (! App::runningInConsole()) {
     $router->get(LaravelLocalization::transRoute('page::routes.homepage'), [
         'uses' => 'PublicController@homepage',
         'as' => 'homepage',
@@ -19,4 +19,4 @@ use Illuminate\Routing\Router;
         'as' => 'page',
         'middleware' => config('asgard.page.config.middleware'),
     ])->where('uri', '.*');
-//}
+}
