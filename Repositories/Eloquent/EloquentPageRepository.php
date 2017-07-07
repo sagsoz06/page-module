@@ -50,7 +50,7 @@ class EloquentPageRepository extends EloquentBaseRepository implements PageRepos
 
         event(new PageWasUpdated($model->id, $data, $model));
 
-        $model->setTags(array_get($data, 'tags', []));
+        if(!\Request::ajax()) $model->setTags(array_get($data, 'tags', []));
 
         return $model;
     }

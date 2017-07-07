@@ -140,7 +140,7 @@ class PublicController extends BasePublicController
         });
         /* End Breadcrumbs */
 
-        return view('tag.index', compact('pages', 'tag'));
+        return view('page::tag', compact('pages', 'tag'));
     }
 
     /**
