@@ -1,8 +1,8 @@
 @extends('layouts.master')
 
-@section('styles')
+@push('css-stack')
     <link href="{!! Module::asset('page:css/nestable.css') !!}" rel="stylesheet" type="text/css"/>
-@stop
+@endpush
 
 @section('content-header')
     <h1>
@@ -51,7 +51,7 @@
     </dl>
 @stop
 
-@section('scripts')
+@push('js-stack')
     <script src="{!! Module::asset('page:js/jquery.nestable.js') !!}"></script>
     {!! Theme::style('vendor/sweetalert/dist/sweetalert.css') !!}
     {!! Theme::script('vendor/sweetalert/dist/sweetalert.min.js') !!}
@@ -130,4 +130,4 @@
             });
         });
     </script>
-@stop
+@endpush

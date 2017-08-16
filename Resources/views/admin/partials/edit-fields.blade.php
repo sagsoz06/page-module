@@ -15,14 +15,11 @@
             </div>
             {!! $errors->first("{$lang}.slug", '<span class="help-block">:message</span>') !!}
         </div>
-        <div class='{{ $errors->has("{$lang}.body") ? ' has-error' : '' }}'>
-            {!! Form::label("{$lang}[body]", trans('page::pages.form.body')) !!}
-            <?php $old = $page->hasTranslation($lang) ? $page->translate($lang)->body : '' ?>
-            <textarea class="ckeditor" name="{{$lang}}[body]" rows="10" cols="80">
-                {!! old("$lang.body", $old) !!}
-            </textarea>
-            {!! $errors->first("{$lang}.body", '<span class="help-block">:message</span>') !!}
-        </div>
+
+        <?php $old = $page->hasTranslation($lang) ? $page->translate($lang)->body : '' ?>
+
+        @editor('body', trans('page::pages.form.body'), old("$lang.body", $old), $lang)
+
         @if(Module::active('Pageextension'))
         <?php if (config('asgard.page.config.partials.translatable.edit') !== []): ?>
             <?php foreach (config('asgard.page.config.partials.translatable.edit') as $partial): ?>

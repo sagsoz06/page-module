@@ -3,7 +3,7 @@
     "alias": "page",
     "description": "Managing pages.",
     "keywords": [],
-    "version": "2.1.0",
+    "version": "2.1.1",
     "active": 1,
     "order": 200,
     "providers": [

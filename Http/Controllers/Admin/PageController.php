@@ -39,7 +39,7 @@ class PageController extends AdminBaseController
         $this->file = $file;
         $this->pageRenderer = $pageRenderer;
         $this->menu = $menu;
-        $this->assetPipeline->requireCss('icheck.blue.css');
+
         $menuLists = $this->menu->menuList();
 
         view()->share('menuLists', $menuLists);
@@ -62,7 +62,6 @@ class PageController extends AdminBaseController
      */
     public function create()
     {
-        $this->assetPipeline->requireJs('ckeditor.js');
         $selectPages = $this->page->allForSelect('');
 
         return view('page::admin.create', compact('selectPages'));
@@ -94,7 +93,6 @@ class PageController extends AdminBaseController
            return $menu->menuitems()->where('page_id', $page->id)->where('link_type', 'page')->first();
         })->keys()->toArray();
 
-        $this->assetPipeline->requireJs('ckeditor.js');
         $selectPages = $this->page->allForSelect($page->id);
 
         return view('page::admin.edit', compact('page', 'selectPages', 'selectedMenus'));

@@ -124,7 +124,7 @@
     </dl>
 @stop
 
-@section('scripts')
+@push('js-stack')
     <script>
         $( document ).ready(function() {
             $(document).keypressAction({
@@ -139,4 +139,4 @@
             $('.select2').select2();
         });
     </script>
-@stop
+@endpush
