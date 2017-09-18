@@ -16,7 +16,6 @@ class SitemapController extends BaseSitemapController
     {
         parent::__construct();
         $this->page = $page;
-        $this->sitemap->setCache('laravel.page.sitemap', $this->sitemapCachePeriod);
     }
 
     public function index()
