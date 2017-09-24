@@ -20,10 +20,12 @@ return [
         ],
         'normal' => [
             'create' => [
-                'pageextension::admin.fields.video-create'
+                'pageextension::admin.fields.video-create',
+                'pageextension::admin.fields.icon-create',
             ],
             'edit' => [
-                'pageextension::admin.fields.video-edit'
+                'pageextension::admin.fields.video-edit',
+                'pageextension::admin.fields.icon-edit',
             ],
         ],
     ],
