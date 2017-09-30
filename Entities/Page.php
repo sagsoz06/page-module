@@ -31,7 +31,8 @@ class Page extends Model implements TaggableInterface
         'og_description',
         'og_image',
         'og_type',
-        'uri'
+        'uri',
+        'sub_title'
     ];
 
     protected $fillable = [
@@ -58,6 +59,8 @@ class Page extends Model implements TaggableInterface
         'sitemap_frequency',
         'sitemap_include',
         'uri',
+        'icon',
+        'video'
     ];
 
     protected $casts = [

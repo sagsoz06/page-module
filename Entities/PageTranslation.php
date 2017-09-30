@@ -21,7 +21,8 @@ class PageTranslation extends Model
         'og_description',
         'og_image',
         'og_type',
-        'uri'
+        'uri',
+        'sub_title'
     ];
 
     public function getBodyAttribute($body)

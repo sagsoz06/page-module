@@ -16,8 +16,9 @@
             {!! $errors->first("{$lang}.slug", '<span class="help-block">:message</span>') !!}
         </div>
 
-        <?php $old = $page->hasTranslation($lang) ? $page->translate($lang)->body : '' ?>
+        {!! Form::i18nInput('sub_title', trans('page::pages.form.sub_title'), $errors, $lang, $page) !!}
 
+        <?php $old = $page->hasTranslation($lang) ? $page->translate($lang)->body : '' ?>
         @editor('body', trans('page::pages.form.body'), old("$lang.body", $old), $lang)
 
         @if(Module::active('Pageextension'))

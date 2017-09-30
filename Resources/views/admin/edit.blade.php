@@ -12,11 +12,11 @@
 @stop
 
 @push('css-stack')
-    <style>
-        .checkbox label {
-            padding-left: 0;
-        }
-    </style>
+<style>
+    .checkbox label {
+        padding-left: 0;
+    }
+</style>
 @endpush
 
 @section('content')
@@ -34,12 +34,16 @@
                     </div>
                     <?php endforeach; ?>
                     @if(Module::active('Pageextension'))
-                    <?php if (config('asgard.page.config.partials.normal.edit') !== []): ?>
+                        <?php if (config('asgard.page.config.partials.normal.edit') !== []): ?>
                         <?php foreach (config('asgard.page.config.partials.normal.edit') as $partial): ?>
-                            @include($partial)
+                        @include($partial)
                         <?php endforeach; ?>
-                    <?php endif; ?>
+                        <?php endif; ?>
                     @endif
+
+                    <div class="box-body">
+                        {!! Form::normalInput('video', trans('page::pages.form.video'), $errors, $page) !!}
+                    </div>
 
                     <div class="box-footer">
                         <button type="submit" class="btn btn-primary btn-flat" name="button" value="index" >
@@ -65,7 +69,7 @@
                                    name="is_home"
                                    type="checkbox"
                                    class="flat-blue"
-                                    {{ isset($page->is_home) && (bool)$page->is_home == true ? 'checked' : '' }}
+                                   {{ isset($page->is_home) && (bool)$page->is_home == true ? 'checked' : '' }}
                                    value="1" />
                             {{ trans('page::pages.form.is homepage') }}
                             {!! $errors->first('is_home', '<span class="help-block">:message</span>') !!}
@@ -86,6 +90,7 @@
                         {!! Form::select('menu[]', $menuLists, $selectedMenus, ['class'=>'form-control select2', 'multiple'=>'multiple']) !!}
                         {!! $errors->first("menu", '<span class="help-block">:message</span>') !!}
                     </div>
+                    {!! Form::normalInput('icon', trans('page::pages.form.icon'), $errors, $page) !!}
                     @tags('asgardcms/page', $page)
                     @mediaMultiple('pageImage', $page, null, trans('page::pages.form.image'))
                 </div>
@@ -93,20 +98,20 @@
             <div class="box box-primary">
                 <div class="box-body">
                     <div class="form-group">
-                    {!! Form::hidden("meta_robot_no_index", 'index') !!}
-                    {!! Form::checkbox("meta_robot_no_index", 'noindex', old("meta_robot_no_index", ($page->meta_robot_no_index == 'index' ? 0 : 1)), ['class' => 'flat-blue']) !!}
-                    {!! Form::label("meta_robot_no_index", trans('page::pages.form.meta_robot_no_index')) !!}
-                    {!! $errors->first("meta_robot_no_index", '<span class="help-block">:message</span>') !!}
-                    <br/>
-                    {!! Form::hidden("meta_robot_no_follow", 'follow') !!}
-                    {!! Form::checkbox("meta_robot_no_follow", 'nofollow', old("meta_robot_no_follow", ($page->meta_robot_no_follow == 'follow' ? 0 : 1)), ['class' => 'flat-blue']) !!}
-                    {!! Form::label("meta_robot_no_follow", trans('page::pages.form.meta_robot_no_follow')) !!}
-                    {!! $errors->first("meta_robot_no_follow", '<span class="help-block">:message</span>') !!}
-                    <br/>
-                    {!! Form::hidden("sitemap_include", 0) !!}
-                    {!! Form::checkbox("sitemap_include", 1, old("sitemap_include", ($page->sitemap_include == 1 ? 1 : 0)), ['class' => 'flat-blue']) !!}
-                    {!! Form::label("sitemap_include", trans('core::sitemap.title.include')) !!}
-                    {!! $errors->first("sitemap_include", '<span class="help-block">:message</span>') !!}
+                        {!! Form::hidden("meta_robot_no_index", 'index') !!}
+                        {!! Form::checkbox("meta_robot_no_index", 'noindex', old("meta_robot_no_index", ($page->meta_robot_no_index == 'index' ? 0 : 1)), ['class' => 'flat-blue']) !!}
+                        {!! Form::label("meta_robot_no_index", trans('page::pages.form.meta_robot_no_index')) !!}
+                        {!! $errors->first("meta_robot_no_index", '<span class="help-block">:message</span>') !!}
+                        <br/>
+                        {!! Form::hidden("meta_robot_no_follow", 'follow') !!}
+                        {!! Form::checkbox("meta_robot_no_follow", 'nofollow', old("meta_robot_no_follow", ($page->meta_robot_no_follow == 'follow' ? 0 : 1)), ['class' => 'flat-blue']) !!}
+                        {!! Form::label("meta_robot_no_follow", trans('page::pages.form.meta_robot_no_follow')) !!}
+                        {!! $errors->first("meta_robot_no_follow", '<span class="help-block">:message</span>') !!}
+                        <br/>
+                        {!! Form::hidden("sitemap_include", 0) !!}
+                        {!! Form::checkbox("sitemap_include", 1, old("sitemap_include", ($page->sitemap_include == 1 ? 1 : 0)), ['class' => 'flat-blue']) !!}
+                        {!! Form::label("sitemap_include", trans('core::sitemap.title.include')) !!}
+                        {!! $errors->first("sitemap_include", '<span class="help-block">:message</span>') !!}
                     </div>
                     <div class="form-group">
                         {!! Form::normalSelect('sitemap_frequency', trans('core::sitemap.title.frequency'), $errors, $sitemapFrequencies, $page->sitemap_frequency) !!}
@@ -133,18 +138,18 @@
 @stop
 
 @push('js-stack')
-    <script>
-        $( document ).ready(function() {
-            $(document).keypressAction({
-                actions: [
-                    { key: 'b', route: "<?= route('admin.page.page.index') ?>" }
-                ]
-            });
-            $('input[type="checkbox"].flat-blue, input[type="radio"].flat-blue').iCheck({
-                checkboxClass: 'icheckbox_flat-blue',
-                radioClass: 'iradio_flat-blue'
-            });
-            $('.select2').select2();
+<script>
+    $( document ).ready(function() {
+        $(document).keypressAction({
+            actions: [
+                { key: 'b', route: "<?= route('admin.page.page.index') ?>" }
+            ]
         });
-    </script>
+        $('input[type="checkbox"].flat-blue, input[type="radio"].flat-blue').iCheck({
+            checkboxClass: 'icheckbox_flat-blue',
+            radioClass: 'iradio_flat-blue'
+        });
+        $('.select2').select2();
+    });
+</script>
 @endpush
