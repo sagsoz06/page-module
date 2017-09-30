@@ -21,13 +21,11 @@
         <?php $old = $page->hasTranslation($lang) ? $page->translate($lang)->body : '' ?>
         @editor('body', trans('page::pages.form.body'), old("$lang.body", $old), $lang)
 
-        @if(Module::active('Pageextension'))
         <?php if (config('asgard.page.config.partials.translatable.edit') !== []): ?>
             <?php foreach (config('asgard.page.config.partials.translatable.edit') as $partial): ?>
                 @include($partial)
             <?php endforeach; ?>
         <?php endif; ?>
-        @endif
     </div>
     <div class="box-group" id="accordion">
         <!-- we are adding the .panel class so bootstrap.js collapse plugin detects it -->

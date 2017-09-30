@@ -11,21 +11,14 @@ return [
     'partials' => [
         'translatable' => [
             'create' => [
-                'pageextension::admin.fields.sub-title-create',
             ],
             'edit' => [
-                'pageextension::admin.fields.sub-title-edit',
-
             ],
         ],
         'normal' => [
             'create' => [
-                'pageextension::admin.fields.video-create',
-                'pageextension::admin.fields.icon-create',
             ],
             'edit' => [
-                'pageextension::admin.fields.video-edit',
-                'pageextension::admin.fields.icon-edit',
             ],
         ],
     ],

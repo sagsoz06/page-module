@@ -33,13 +33,12 @@
                         @include('page::admin.partials.edit-fields', ['lang' => $locale])
                     </div>
                     <?php endforeach; ?>
-                    @if(Module::active('Pageextension'))
-                        <?php if (config('asgard.page.config.partials.normal.edit') !== []): ?>
-                        <?php foreach (config('asgard.page.config.partials.normal.edit') as $partial): ?>
-                        @include($partial)
-                        <?php endforeach; ?>
-                        <?php endif; ?>
-                    @endif
+
+                    <?php if (config('asgard.page.config.partials.normal.edit') !== []): ?>
+                    <?php foreach (config('asgard.page.config.partials.normal.edit') as $partial): ?>
+                    @include($partial)
+                    <?php endforeach; ?>
+                    <?php endif; ?>
 
                     <div class="box-body">
                         {!! Form::normalInput('video', trans('page::pages.form.video'), $errors, $page) !!}
