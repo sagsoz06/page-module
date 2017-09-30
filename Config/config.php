@@ -36,11 +36,11 @@ return [
     | Add relations that will be dynamically added to the Page entity
     */
     'relations' => [
-        'extension' => function ($self) {
-            if(Module::active('Pageextension')) {
-                return $self->belongsTo(\Modules\Pageextension\Entities\Pageextension::class, 'id', 'page_id')->with(['translations'])->first();
-            }
-        }
+//        'extension' => function ($self) {
+//            if(Module::active('Pageextension')) {
+//                return $self->belongsTo(\Modules\Pageextension\Entities\Pageextension::class, 'id', 'page_id')->with(['translations'])->first();
+//            }
+//        }
     ],
     /*
     |--------------------------------------------------------------------------
