@@ -24,4 +24,12 @@ class PagePresenter extends BasePresenter
 
         return $parentUri;
     }
+
+    public function coverImage($width, $height, $mode, $quality)
+    {
+        if($file = $this->entity->files()->where('zone', 'pageCover')->first()) {
+            return \Imagy::getImage($file->filename, $this->zone, ['width' => $width, 'height' => $height, 'mode' => $mode, 'quality' => $quality]);
+        }
+        return false;
+    }
 }

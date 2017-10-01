@@ -92,6 +92,7 @@
                     {!! Form::normalInput('icon', trans('page::pages.form.icon'), $errors, $page) !!}
                     @tags('asgardcms/page', $page)
                     @mediaMultiple('pageImage', $page, null, trans('page::pages.form.image'))
+                    @mediaSingle('pageCover', $page, null, trans('page::pages.form.cover'))
                 </div>
             </div>
             <div class="box box-primary">

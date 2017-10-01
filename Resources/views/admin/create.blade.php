@@ -86,6 +86,7 @@
                     {!! Form::normalInput('icon', trans('page::pages.form.icon'), $errors) !!}
                     @tags('asgardcms/page')
                     @mediaMultiple('pageImage', null, null, trans('page::pages.form.image'))
+                    @mediaSingle('pageCover', null, null, trans('page::pages.form.cover'))
                 </div>
             </div>
             @if(Authentication::hasAccess('page.pages.sitemap'))
