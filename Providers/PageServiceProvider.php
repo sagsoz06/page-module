@@ -55,6 +55,10 @@ class PageServiceProvider extends ServiceProvider
 
     public function boot()
     {
+        if(setting('page::intro-page')) {
+            \Route::get('/', 'Modules\Page\Http\Controllers\PublicController@intro');
+        }
+
         $this->publishConfig('page', 'config');
         $this->publishConfig('page', 'permissions');
 

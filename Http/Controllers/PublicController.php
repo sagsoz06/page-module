@@ -191,4 +191,36 @@ class PublicController extends BasePublicController
             $breadcrumbs->push($page->parent->title, $page->parent->url);
         }
     }
+
+    public function intro()
+    {
+        $page = $this->page->findBySlug('intro');
+
+        $this->throw404IfNotFound($page);
+
+        $template = $this->getTemplateForPage($page);
+
+        /* Start Seo */
+        $this->seo()
+            ->setTitle($page->present()->meta_title)
+            ->setDescription($page->present()->meta_description)
+            ->meta()
+            ->setUrl($page->url)
+            ->addMeta('robots', $page->robots)
+            ->addAlternates($page->present()->languages);
+
+        $this->seoGraph()
+            ->setTitle($page->present()->og_title)
+            ->setDescription($page->present()->og_description)
+            ->setType($page->og_type)
+            ->setUrl($page->url);
+
+        $this->seoCard()
+            ->setTitle($page->present()->og_title)
+            ->setDescription($page->present()->og_description)
+            ->setType('app');
+        /* End Seo */
+
+        return view($template, compact('page'));
+    }
 }
