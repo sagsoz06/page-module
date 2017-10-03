@@ -59,8 +59,8 @@ class Page extends Model implements TaggableInterface
         'sitemap_frequency',
         'sitemap_include',
         'uri',
-        'icon',
-        'video'
+        'video',
+        'settings'
     ];
 
     protected $casts = [
@@ -153,5 +153,16 @@ class Page extends Model implements TaggableInterface
     public function getRobotsAttribute()
     {
         return $this->meta_robot_no_index.', '.$this->meta_robot_no_follow;
+    }
+
+    public function setSettingsAttribute($value)
+    {
+        return $this->attributes['settings'] = json_encode($value);
+    }
+
+    public function getSettingsAttribute()
+    {
+        $settings = json_decode($this->attributes['settings']);
+        return $settings;
     }
 }

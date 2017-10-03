@@ -10,6 +10,7 @@ use Modules\Core\Events\CollectingAssets;
 use Modules\Core\Traits\CanGetSidebarClassForModule;
 use Modules\Core\Traits\CanPublishConfiguration;
 use Modules\Media\Image\ThumbnailManager;
+use Modules\Page\Composers\ThemeAdminAssets;
 use Modules\Page\Entities\Page;
 use Modules\Page\Entities\PageTranslation;
 use Modules\Page\Events\Handlers\CheckTranslations;
@@ -51,6 +52,8 @@ class PageServiceProvider extends ServiceProvider
             BuildingSidebar::class,
             $this->getSidebarClassForModule('page', RegisterPageSidebar::class)
         );
+
+        view()->composer(['page::admin.edit', 'page::admin.create'], ThemeAdminAssets::class);
     }
 
     public function boot()

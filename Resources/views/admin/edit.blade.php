@@ -11,14 +11,6 @@
     </ol>
 @stop
 
-@push('css-stack')
-<style>
-    .checkbox label {
-        padding-left: 0;
-    }
-</style>
-@endpush
-
 @section('content')
     {!! Form::open(['route' => ['admin.page.page.update', $page->id], 'method' => 'put']) !!}
     <div class="row">
@@ -59,6 +51,7 @@
             </div> {{-- end nav-tabs-custom --}}
         </div>
         <div class="col-md-2">
+            @include('page::admin.partials.settings-fields')
             <div class="box box-primary">
                 <div class="box-body">
                     <div class="checkbox{{ $errors->has('is_home') ? ' has-error' : '' }}">
@@ -89,7 +82,6 @@
                         {!! Form::select('menu[]', $menuLists, $selectedMenus, ['class'=>'form-control select2', 'multiple'=>'multiple']) !!}
                         {!! $errors->first("menu", '<span class="help-block">:message</span>') !!}
                     </div>
-                    {!! Form::normalInput('icon', trans('page::pages.form.icon'), $errors, $page) !!}
                     @tags('asgardcms/page', $page)
                     @mediaMultiple('pageImage', $page, null, trans('page::pages.form.image'))
                     @mediaSingle('pageCover', $page, null, trans('page::pages.form.cover'))
@@ -152,4 +144,12 @@
         $('.select2').select2();
     });
 </script>
+@endpush
+
+@push('css-stack')
+<style>
+    .checkbox label {
+        padding-left: 0;
+    }
+</style>
 @endpush

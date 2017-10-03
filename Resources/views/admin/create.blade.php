@@ -54,6 +54,7 @@
             </div> {{-- end nav-tabs-custom --}}
         </div>
         <div class="col-md-2">
+            @include('page::admin.partials.settings-fields')
             <div class="box box-primary">
                 <div class="box-body">
                     <div class="checkbox{{ $errors->has('is_home') ? ' has-error' : '' }}">
@@ -83,7 +84,6 @@
                         {!! Form::select('menu[]', $menuLists, old("menu"), ['class'=>'form-control select2', 'multiple'=>'multiple']) !!}
                         {!! $errors->first("menu", '<span class="help-block">:message</span>') !!}
                     </div>
-                    {!! Form::normalInput('icon', trans('page::pages.form.icon'), $errors) !!}
                     @tags('asgardcms/page')
                     @mediaMultiple('pageImage', null, null, trans('page::pages.form.image'))
                     @mediaSingle('pageCover', null, null, trans('page::pages.form.cover'))
