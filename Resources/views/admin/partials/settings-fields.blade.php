@@ -1,5 +1,5 @@
 <button type="button" class="btn btn-primary btn-block" data-toggle="modal" data-target="#modal-settings">
-    Sayfa Ayarları
+    <i class="fa fa-cog"></i> Sayfa Ayarları
 </button>
 <div class="modal modal-info fade" id="modal-settings">
     <div class="modal-dialog modal-lg">
@@ -28,7 +28,7 @@
                             </div>
                         </div>
                         <div class="col-md-3">
-                            {!! Form::normalSelect("settings[title_font_size]", "Başlık Font Boyutu", $errors, array(''=>'Seçiniz') + array_combine(range(2, 90, 2), range(2, 90, 2)), isset($slider->settings->content_font_responsive) ? $slider->settings->content_font_responsive : '') !!}
+                            {!! Form::normalSelect("settings[title_font_size]", "Başlık Font Boyutu", $errors, array(''=>'Seçiniz') + array_combine(range(2, 90, 2), range(2, 90, 2)), isset($page->settings->content_font_responsive) ? $page->settings->content_font_responsive : '') !!}
                         </div>
                         <div class="col-md-3">
                             <div class="form-group{{ $errors->has("settings.icon") ? ' has-error' : '' }}">
@@ -42,18 +42,29 @@
                 <div class="row">
                     <fieldset>
                         <legend>Alt Menü Ayarları</legend>
-                        <div class="col-md-3">
-                            <div class="form-group{{ $errors->has("settings.menu_title_color") ? ' has-error' : '' }}">
-                                {!! Form::label("settings.menu_title_color", "Başlık Rengi".':') !!}
-                                {!! Form::input('text', 'settings[menu_title_color]', !isset($page->settings->menu_title_color) ? '' : $page->settings->menu_title_color, ['class'=>'form-control colorpicker']) !!}
-                                {!! $errors->first("settings.menu_title_color", '<span class="help-block">:message</span>') !!}
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="form-group{{ $errors->has("settings.menu_bg_color") ? ' has-error' : '' }}">
-                                {!! Form::label("settings.menu_bg_color", "Başlık Arkaplan Rengi".':') !!}
-                                {!! Form::input('text', 'settings[menu_bg_color]', !isset($page->settings->menu_bg_color) ? '' : $page->settings->menu_bg_color, ['class'=>'form-control colorpicker']) !!}
-                                {!! $errors->first("settings.menu_bg_color", '<span class="help-block">:message</span>') !!}
+                        <div class="col-md-6">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group{{ $errors->has("settings.menu_title_color") ? ' has-error' : '' }}">
+                                        {!! Form::label("settings.menu_title_color", "Başlık Rengi".':') !!}
+                                        {!! Form::input('text', 'settings[menu_title_color]', !isset($page->settings->menu_title_color) ? '' : $page->settings->menu_title_color, ['class'=>'form-control colorpicker']) !!}
+                                        {!! $errors->first("settings.menu_title_color", '<span class="help-block">:message</span>') !!}
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group{{ $errors->has("settings.menu_bg_color") ? ' has-error' : '' }}">
+                                        {!! Form::label("settings.menu_bg_color", "Başlık Arkaplan".':') !!}
+                                        {!! Form::input('text', 'settings[menu_bg_color]', !isset($page->settings->menu_bg_color) ? '' : $page->settings->menu_bg_color, ['class'=>'form-control colorpicker']) !!}
+                                        {!! $errors->first("settings.menu_bg_color", '<span class="help-block">:message</span>') !!}
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group{{ $errors->has("settings.menu_border_color") ? ' has-error' : '' }}">
+                                        {!! Form::label("settings.menu_border_color", "Kenarlık Rengi".':') !!}
+                                        {!! Form::input('text', 'settings[menu_border_color]', !isset($page->settings->menu_border_color) ? '' : $page->settings->menu_border_color, ['class'=>'form-control colorpicker']) !!}
+                                        {!! $errors->first("settings.menu_border_color", '<span class="help-block">:message</span>') !!}
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -80,6 +91,17 @@
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                    </fieldset>
+                </div>
+                <div class="row">
+                    <fieldset>
+                        <legend>Anasayfa Başlık Ayarları</legend>
+                        <div class="col-md-3">
+                            {!! Form::normalSelect("settings[show_box]", "Kutu da gösterilsin mi?", $errors, [0=>'Hayır', 1=>'Evet'], isset($page->settings->show_box) ? $page->settings->show_box : 0) !!}
+                        </div>
+                        <div class="col-md-3">
+                            {!! Form::normalSelect("settings[column_box]", "Kutu boyutu", $errors, array(''=>'Seçiniz') + array_combine(range(2, 12, 2), range(2, 12, 2)), isset($page->settings->column_box) ? $page->settings->column_box : 4) !!}
                         </div>
                     </fieldset>
                 </div>
