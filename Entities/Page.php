@@ -165,4 +165,17 @@ class Page extends Model implements TaggableInterface
         $settings = json_decode($this->attributes['settings']);
         return $settings;
     }
+
+    public function getParentPageAttribute()
+    {
+        if(isset($this->parent->parent)) {
+            $parent = $this->parent->parent;
+        }
+        elseif(isset($this->parent)) {
+            $parent = $this->parent;
+        } else {
+            $parent = $this;
+        }
+        return $parent;
+    }
 }

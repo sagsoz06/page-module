@@ -192,7 +192,7 @@ class EloquentPageRepository extends EloquentBaseRepository implements PageRepos
     public function rootsForPage($pageId)
     {
         return $this->model->whereHas('translations', function (Builder $q) {
-            $q->where('locale', App::getLocale());
+            $q->where('locale', \App::getLocale());
         })->with('translations')->wherePageId($pageId)->orderBy('position')->get();
     }
 
