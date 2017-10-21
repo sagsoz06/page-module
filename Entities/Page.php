@@ -173,8 +173,12 @@ class Page extends Model implements TaggableInterface
         }
         elseif(isset($this->parent)) {
             $parent = $this->parent;
-        } else {
+        }
+        elseif(isset($this->children) && count($this->children)>0) {
             $parent = $this;
+        }
+        else {
+            $parent = null;
         }
         return $parent;
     }
