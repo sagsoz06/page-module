@@ -1,7 +1,7 @@
 <button type="button" class="btn btn-primary btn-block" data-toggle="modal" data-target="#modal-settings">
     <i class="fa fa-cog"></i> Sayfa Ayarları
 </button>
-<div class="modal modal-info fade" id="modal-settings">
+<div class="modal fade" id="modal-settings">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
@@ -42,11 +42,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-12">
-                                    <div class="form-group{{ $errors->has("settings.slogan") ? ' has-error' : '' }}">
-                                        {!! Form::label("settings.slogan", "Slogan".':') !!}
-                                        {!! Form::input('text', 'settings[slogan]', !isset($page->settings->slogan) ? '' : $page->settings->slogan, ['class'=>'form-control']) !!}
-                                        {!! $errors->first("settings.slogan", '<span class="help-block">:message</span>') !!}
-                                    </div>
+                                    @include('page::admin.partials.settings.text-field', ['field'=>'slogan', 'label'=>'Slogan'])
                                 </div>
                             </div>
                         </div>
@@ -120,7 +116,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">KAYDET VE KAPAT</button>
+                <button type="button" class="btn btn-primary pull-left" data-dismiss="modal">KAYDET VE KAPAT</button>
             </div>
         </div>
     </div>
@@ -136,9 +132,18 @@
 
 @push('css-stack')
 <style>
+    .modal-header {
+        background: #3c8dbc;
+        color: #ffffff;
+    }
+
+    .modal-footer {
+        background: #ececec;
+    }
+
     #modal-settings legend {
-        padding: 0 20px;
-        color: #FFFFFF;
+        padding: 5px 20px;
+        background: #ebebeb;
         font-size: 14px;
         font-weight: bold;
     }

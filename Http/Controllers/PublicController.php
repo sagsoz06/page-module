@@ -8,7 +8,6 @@ use Modules\Page\Entities\Page;
 use Modules\Page\Repositories\PageRepository;
 use Breadcrumbs;
 use Modules\Tag\Repositories\TagRepository;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class PublicController extends BasePublicController
 {
