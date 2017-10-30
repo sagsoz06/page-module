@@ -87,6 +87,7 @@
                     @mediaSingle('pageCover', $page, null, trans('page::pages.form.cover'))
                 </div>
             </div>
+            @if($currentUser->hasAccess('page.pages.sitemap'))
             <div class="box box-primary">
                 <div class="box-body">
                     <div class="form-group">
@@ -113,6 +114,7 @@
                     </div>
                 </div>
             </div>
+            @endif
         </div>
     </div>
 

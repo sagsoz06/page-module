@@ -89,7 +89,7 @@
                     @mediaSingle('pageCover', null, null, trans('page::pages.form.cover'))
                 </div>
             </div>
-            @if(Authentication::hasAccess('page.pages.sitemap'))
+            @if($currentUser->hasAccess('page.pages.sitemap'))
                 <div class="box box-primary">
                     <div class="box-body">
                         <div class='form-group{{ $errors->has("meta_robot_no_index") ? ' has-error' : '' }}'>

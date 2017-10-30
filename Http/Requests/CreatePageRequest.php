@@ -3,6 +3,7 @@
 namespace Modules\Page\Http\Requests;
 
 use Modules\Core\Internationalisation\BaseFormRequest;
+use Modules\Page\Repositories\PageRepository;
 
 class CreatePageRequest extends BaseFormRequest
 {
@@ -17,9 +18,29 @@ class CreatePageRequest extends BaseFormRequest
 
     public function translationRules()
     {
+        \Validator::extend('check_uri', function($attributes, $value, $parameters, $validator) {
+            $pageRepository = app(PageRepository::class);
+            if($parent = $pageRepository->find($this->request->get('parent_id'))) {
+                if(isset($parameters[0])) {
+                    $page = $pageRepository->findByUriInLocale($parent->translate($parameters[0])->uri.'/'.$value, $parameters[0]);
+                    if(isset($parameters[1])) {
+                        if($page->id == $parameters[1]) {
+                            return true;
+                        }
+                    }
+                    if($page) {
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }, trans('validation.unique'));
+
+
         return [
             'title'            => 'required',
-            'slug'             => "required|unique:page__page_translations,slug,null,page_id,locale,$this->localeKey",
+            //'slug'             => "required|unique:page__page_translations,slug,null,page_id,locale,$this->localeKey",
+            'slug'             => "required|check_uri:$this->localeKey",
             'body'             => 'required',
             'meta_title'       => 'max:60',
             'meta_description' => 'max:160'
