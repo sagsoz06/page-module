@@ -36,10 +36,10 @@ class UpdatePageRequest extends BaseFormRequest
             return true;
         }, trans('validation.unique'));
 
+
         $id = $this->route()->parameter('page')->id;
         return [
             'title'            => 'required',
-            //'slug'             => "required|unique:page__page_translations,slug,$id,page_id,locale,$this->localeKey",
             'slug'             => "required|check_uri:$this->localeKey,$id",
             'body'             => 'required',
             'meta_title'       => 'max:55',

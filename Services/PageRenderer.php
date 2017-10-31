@@ -41,14 +41,18 @@ class PageRenderer
         foreach ($items as $item) {
             $this->page .= "<li class=\"dd-item\" data-id=\"{$item->id}\">";
             $editLink = URL::route('admin.page.page.edit', [$item->id]);
+            $pageUrl = URL::route('page', [$item->uri]);
             $style = $item->isRoot() ? 'none' : 'inline';
             $this->page .= <<<HTML
 <div class="btn-group" role="group" aria-label="Action buttons" style="display: {$style}">
     <a class="btn btn-sm btn-info" style="float:left;" href="{$editLink}">
         <i class="fa fa-pencil"></i>
     </a>
-    <a class="btn btn-sm btn-danger jsDeleteMenuItem" style="float:left; margin-right: 15px;" data-item-id="{$item->id}">
+    <a class="btn btn-sm btn-danger jsDeleteMenuItem" style="float:left;" data-item-id="{$item->id}">
        <i class="fa fa-times"></i>
+    </a>
+    <a target="_blank" href="{$pageUrl}" class="btn btn-sm btn-success" style="float:left; margin-right: 15px;" data-item-id="{$item->id}">
+       <i class="fa fa-eye"></i>
     </a>
 </div>
 HTML;

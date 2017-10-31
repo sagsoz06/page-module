@@ -36,10 +36,8 @@ class CreatePageRequest extends BaseFormRequest
             return true;
         }, trans('validation.unique'));
 
-
         return [
             'title'            => 'required',
-            //'slug'             => "required|unique:page__page_translations,slug,null,page_id,locale,$this->localeKey",
             'slug'             => "required|check_uri:$this->localeKey",
             'body'             => 'required',
             'meta_title'       => 'max:60',
