@@ -34,9 +34,7 @@ class PagePresenter extends BasePresenter
         if(isset($this->entity->parent)) {
             $pages->push($this->entity->parent);
         }
-        return $pages->map(function($page){
-            return $page->title;
-        })->implode(' / ');
+        return $pages->pluck('title')->implode(' / ');
     }
 
     public function coverImage($width, $height, $mode, $quality)

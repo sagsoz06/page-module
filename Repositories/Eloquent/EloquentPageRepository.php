@@ -74,9 +74,9 @@ class EloquentPageRepository extends EloquentBaseRepository implements PageRepos
     public function all()
     {
         if (method_exists($this->model, 'translations')) {
-            return $this->model->with('translations')->orderBy('position', 'ASC')->get();
+            return $this->model->with(['translations','parent','children'])->orderBy('position', 'ASC')->get();
         }
-        return $this->model->orderBy('position', 'ASC')->get();
+        return $this->model->orderBy('position', 'ASC')->with(['parent','children'])->get();
     }
 
     /**
@@ -140,7 +140,7 @@ class EloquentPageRepository extends EloquentBaseRepository implements PageRepos
     {
         return $this->model->whereHas('translations', function (Builder $q) use ($id) {
             $q->where('page_id', $id);
-        })->with('translations')->first();
+        })->with(['translations','parent','children'])->first();
     }
 
     /**
@@ -148,7 +148,7 @@ class EloquentPageRepository extends EloquentBaseRepository implements PageRepos
      */
     public function pageLists()
     {
-        return $this->model->with('translations')->get()->pluck('title', 'id')->toArray();
+        return $this->model->with(['translations','parent','children'])->get()->pluck('title', 'id')->toArray();
     }
 
     /**
@@ -199,9 +199,9 @@ class EloquentPageRepository extends EloquentBaseRepository implements PageRepos
     public function allForSelect($currentPage = '')
     {
         $pages = $this->all([], true)
-                      ->except($currentPage)
-                      ->nest()
-                      ->listsFlattened();
+            ->except($currentPage)
+            ->nest()
+            ->listsFlattened();
         return [''=>trans('page::pages.form.select page')] + $pages;
     }
 
@@ -229,5 +229,14 @@ class EloquentPageRepository extends EloquentBaseRepository implements PageRepos
     public function findByTag($tag)
     {
         return $this->model->whereTag($tag)->with('tags')->get();
+    }
+
+    public function find($id)
+    {
+        if (method_exists($this->model, 'translations')) {
+            return $this->model->with(['translations','parent','children'])->find($id);
+        }
+
+        return $this->model->find($id);
     }
 }
