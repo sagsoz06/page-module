@@ -103,6 +103,22 @@ class Page extends Model implements TaggableInterface
     }
 
     /**
+     * @return mixed
+     */
+    public function recursiveParent()
+    {
+        return $this->parent()->with('recursiveParent');
+    }
+
+    /**
+     * @return mixed
+     */
+    public function recursiveChildren()
+    {
+        return $this->children()->with('recursiveChildren');
+    }
+
+    /**
      * Check if the current menu item is the root
      * @return bool
      */

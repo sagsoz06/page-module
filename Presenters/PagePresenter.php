@@ -25,6 +25,20 @@ class PagePresenter extends BasePresenter
         return $parentUri;
     }
 
+    public function subTitles()
+    {
+        $pages = collect();
+        if(isset($this->entity->parent->parent)) {
+            $pages->push($this->entity->parent->parent);
+        }
+        if(isset($this->entity->parent)) {
+            $pages->push($this->entity->parent);
+        }
+        return $pages->map(function($page){
+            return $page->title;
+        })->implode(' / ');
+    }
+
     public function coverImage($width, $height, $mode, $quality)
     {
         if($file = $this->entity->files()->where('zone', 'pageCover')->first()) {
