@@ -40,11 +40,6 @@
                     <?php endforeach; ?>
                     <?php endif; ?>
 
-
-                    <div class="box-body">
-                        {!! Form::normalInput('video', trans('page::pages.form.video'), $errors) !!}
-                    </div>
-
                     <div class="box-footer">
                         <button type="submit" class="btn btn-primary btn-flat">{{ trans('core::core.button.create') }}</button>
                         <button class="btn btn-default btn-flat" name="button" type="reset">{{ trans('core::core.button.reset') }}</button>

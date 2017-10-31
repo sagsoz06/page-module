@@ -32,10 +32,6 @@
                     <?php endforeach; ?>
                     <?php endif; ?>
 
-                    <div class="box-body">
-                        {!! Form::normalInput('video', trans('page::pages.form.video'), $errors, $page) !!}
-                    </div>
-
                     <div class="box-footer">
                         <button type="submit" class="btn btn-primary btn-flat" name="button" value="index" >
                             <i class="fa fa-angle-left"></i>

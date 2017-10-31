@@ -11,8 +11,6 @@
             {!! $errors->first("{$lang}.slug", '<span class="help-block">:message</span>') !!}
         </div>
 
-        {!! Form::i18nInput('sub_title', trans('page::pages.form.sub_title'), $errors, $lang) !!}
-
         @editor('body', trans('page::pages.form.body'), old("{$lang}.body"), $lang)
 
         <?php if (config('asgard.page.config.partials.translatable.create') !== []): ?>

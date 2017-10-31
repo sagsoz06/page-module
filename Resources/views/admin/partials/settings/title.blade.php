@@ -30,7 +30,7 @@
             </div>
             <div class="row">
                 <div class="col-md-12">
-                    @include('page::admin.partials.settings.text-field', ['field'=>'slogan', 'label'=>'Slogan'])
+                    @include('page::admin.partials.settings.text-field', ['fields'=>['slogan','sub_title'], 'labels'=>['slogan'=>'Slogan', 'sub_title'=>'Alt Başlık']])
                 </div>
             </div>
         </div>
