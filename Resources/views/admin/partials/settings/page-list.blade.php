@@ -15,3 +15,30 @@
         </div>
     </fieldset>
 </div>
+<div class="row">
+    <fieldset>
+        <legend>Gösterim Ayarları</legend>
+        <div class="row">
+            <div class="col-md-12 form-inline">
+                <div class="form-group" style="margin-right: 10px;">
+                    <label>
+                        {!! Form::checkbox("settings[list_page_content]", 1, old('settings.list_page_content', isset($page->settings->list_page_content) ? $page->settings->list_page_content : 0), ['class'=>'flat-blue']) !!}
+                        &nbsp; İçeriği Göster
+                    </label>
+                </div>
+                <div class="form-group">
+                    <label>
+                        {!! Form::checkbox("settings[list_page_image]", 1, old('settings.list_page_image', isset($page->settings->list_page_image) ? $page->settings->list_page_image : 0), ['class'=>'flat-blue']) !!}
+                        &nbsp; Resim Göster
+                    </label>
+                </div>
+                <div class="form-group">
+                    <label>
+                        {!! Form::checkbox("settings[list_page_button]", 1, old('settings.list_page_button', isset($page->settings->list_page_button) ? $page->settings->list_page_button : 0), ['class'=>'flat-blue']) !!}
+                        &nbsp; İncele Butonu
+                    </label>
+                </div>
+            </div>
+        </div>
+    </fieldset>
+</div>
