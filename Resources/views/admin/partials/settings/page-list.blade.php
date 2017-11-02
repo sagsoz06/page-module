@@ -22,17 +22,23 @@
             <div class="col-md-12 form-inline">
                 <div class="form-group" style="margin-right: 10px;">
                     <label>
-                        {!! Form::checkbox("settings[list_page_content]", 1, old('settings.list_page_content', isset($page->settings->list_page_content) ? $page->settings->list_page_content : 0), ['class'=>'flat-blue']) !!}
-                        &nbsp; İçeriği Göster
+                        {!! Form::checkbox("settings[page_body]", 1, old('settings.page_body', isset($page->settings->page_body) ? $page->settings->page_body : 0), ['class'=>'flat-blue']) !!}
+                        &nbsp; Sayfa İçeriği Göster
                     </label>
                 </div>
-                <div class="form-group">
+                <div class="form-group" style="margin-right: 10px;">
+                    <label>
+                        {!! Form::checkbox("settings[list_page_content]", 1, old('settings.list_page_content', isset($page->settings->list_page_content) ? $page->settings->list_page_content : 0), ['class'=>'flat-blue']) !!}
+                        &nbsp; Alt Sayfa İçeriği Göster
+                    </label>
+                </div>
+                <div class="form-group" style="margin-right: 10px;">
                     <label>
                         {!! Form::checkbox("settings[list_page_image]", 1, old('settings.list_page_image', isset($page->settings->list_page_image) ? $page->settings->list_page_image : 0), ['class'=>'flat-blue']) !!}
                         &nbsp; Resim Göster
                     </label>
                 </div>
-                <div class="form-group">
+                <div class="form-group" style="margin-right: 10px;">
                     <label>
                         {!! Form::checkbox("settings[list_page_button]", 1, old('settings.list_page_button', isset($page->settings->list_page_button) ? $page->settings->list_page_button : 0), ['class'=>'flat-blue']) !!}
                         &nbsp; İncele Butonu
