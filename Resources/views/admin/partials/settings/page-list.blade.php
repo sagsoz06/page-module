@@ -22,6 +22,12 @@
             <div class="col-md-12 form-inline">
                 <div class="form-group" style="margin-right: 10px;">
                     <label>
+                        {!! Form::checkbox("settings[cover_image]", 1, old('settings.cover_image', isset($page->settings->cover_image) ? $page->settings->cover_image : 0), ['class'=>'flat-blue']) !!}
+                        &nbsp; Kapak Resmi Göster
+                    </label>
+                </div>
+                <div class="form-group" style="margin-right: 10px;">
+                    <label>
                         {!! Form::checkbox("settings[page_body]", 1, old('settings.page_body', isset($page->settings->page_body) ? $page->settings->page_body : 0), ['class'=>'flat-blue']) !!}
                         &nbsp; Sayfa İçeriği Göster
                     </label>

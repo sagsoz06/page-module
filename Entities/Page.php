@@ -60,11 +60,13 @@ class Page extends Model implements TaggableInterface
         'sitemap_include',
         'uri',
         'video',
-        'settings'
+        'settings',
+        'permissions'
     ];
 
     protected $casts = [
         'is_home' => 'boolean',
+        'permissions' => 'array'
     ];
 
     protected $presenter = PagePresenter::class;
@@ -102,17 +104,11 @@ class Page extends Model implements TaggableInterface
         return $this->belongsTo(Page::class);
     }
 
-    /**
-     * @return mixed
-     */
     public function recursiveParent()
     {
         return $this->parent()->with('recursiveParent');
     }
 
-    /**
-     * @return mixed
-     */
     public function recursiveChildren()
     {
         return $this->children()->with('recursiveChildren');

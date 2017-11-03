@@ -49,6 +49,8 @@ class EloquentPageRepository extends EloquentBaseRepository implements PageRepos
 
         event($event = new PageIsUpdating($model, $data));
 
+        if (!isset($data['permissions'])) $event->setAttributes(['permissions'=>null]);
+
         $model->update($event->getAttributes());
 
         event('page.updateChildrenUri', [$model]);
@@ -238,5 +240,15 @@ class EloquentPageRepository extends EloquentBaseRepository implements PageRepos
         }
 
         return $this->model->find($id);
+    }
+
+    /**
+     * @param $setting
+     * @param $value
+     * @return mixed
+     */
+    public function findInSettings($setting, $value)
+    {
+        return $this->model->whereRaw("settings REGEXP '\"{$setting}\":\"1\"'")->with(['parent', 'children', 'translations'])->get();
     }
 }

@@ -27,6 +27,7 @@ use Modules\Page\Repositories\PageRepository;
 use Modules\Page\Services\FinderService;
 use Modules\Page\Events\Handlers\RegisterPageSidebar;
 use Modules\Tag\Repositories\TagManager;
+use Modules\User\Repositories\RoleRepository;
 
 class PageServiceProvider extends ServiceProvider
 {
@@ -54,6 +55,10 @@ class PageServiceProvider extends ServiceProvider
         );
 
         view()->composer(['page::admin.edit', 'page::admin.create'], ThemeAdminAssets::class);
+        view()->composer(['page::admin.edit', 'page::admin.create'], function(){
+           $roleRepository = app(RoleRepository::class);
+           return view()->share('permissions', $roleRepository->all()->pluck('name','id')->toArray());
+        });
     }
 
     public function boot()

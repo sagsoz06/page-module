@@ -182,4 +182,20 @@ class CachePageDecorator extends BaseCacheDecorator implements PageRepository
                 }
             );
     }
+
+    /**
+     * @param $setting
+     * @param $value
+     * @return mixed
+     */
+    public function findInSettings($setting, $value)
+    {
+        return $this->cache
+            ->tags([$this->entityName, 'global'])
+            ->remember("{$this->locale}.{$this->entityName}.findInSettings.{$setting}.{$value}", $this->cacheTime,
+                function () use ($setting, $value) {
+                    return $this->repository->findInSettings($setting, $value);
+                }
+            );
+    }
 }

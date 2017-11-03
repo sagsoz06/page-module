@@ -14,8 +14,8 @@
                     <ul class="nav nav-tabs">
                         <li class="active"><a href="#home-box" data-toggle="tab">Anasayfa</a></li>
                         <li><a href="#title" data-toggle="tab">Başlık</a></li>
-                        <li><a href="#sub-menu" data-toggle="tab">Alt Menü</a></li>
-                        <li><a href="#page-list" data-toggle="tab">Alt Sayfa</a></li>
+                        <li><a href="#sub-menu" data-toggle="tab">Menü</a></li>
+                        <li><a href="#page-list" data-toggle="tab">Sayfa</a></li>
                     </ul>
                     <div class="tab-content">
                         <div class="tab-pane active" id="home-box">

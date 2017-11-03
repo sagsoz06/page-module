@@ -23,9 +23,11 @@ class UpdatePageRequest extends BaseFormRequest
             if($parent = $pageRepository->find($this->request->get('parent_id'))) {
                 if(isset($parameters[0])) {
                     $page = $pageRepository->findByUriInLocale($parent->translate($parameters[0])->uri.'/'.$value, $parameters[0]);
-                    if(isset($parameters[1])) {
-                        if($page->id == $parameters[1]) {
-                            return true;
+                    if($page) {
+                        if(isset($parameters[1])) {
+                            if($page->id == $parameters[1]) {
+                                return true;
+                            }
                         }
                     }
                     if($page) {

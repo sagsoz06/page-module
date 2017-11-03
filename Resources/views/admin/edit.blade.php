@@ -78,11 +78,19 @@
                         {!! Form::select('menu[]', $menuLists, $selectedMenus, ['class'=>'form-control select2', 'multiple'=>'multiple']) !!}
                         {!! $errors->first("menu", '<span class="help-block">:message</span>') !!}
                     </div>
+                    @if($currentUser->hasAccess('page.pages.permission'))
+                    <div class="form-group">
+                        {!! Form::label("permissions", trans('page::pages.form.permissions')) !!}
+                        {!! Form::select('permissions[]', $permissions, $page->permissions, ['class'=>'form-control select2', 'multiple'=>'multiple']) !!}
+                        {!! $errors->first("permissions", '<span class="help-block">:message</span>') !!}
+                    </div>
+                    @endif
                     @tags('asgardcms/page', $page)
                     @mediaMultiple('pageImage', $page, null, trans('page::pages.form.image'))
                     @mediaSingle('pageCover', $page, null, trans('page::pages.form.cover'))
                 </div>
             </div>
+            @if($currentUser->hasAccess('page.pages.sitemap'))
             <div class="box box-primary">
                 <div class="box-body">
                     <div class="form-group">
@@ -109,6 +117,7 @@
                     </div>
                 </div>
             </div>
+            @endif
         </div>
     </div>
 
