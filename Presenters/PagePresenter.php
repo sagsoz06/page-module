@@ -25,7 +25,7 @@ class PagePresenter extends BasePresenter
         return $parentUri;
     }
 
-    public function subTitles()
+    public function subTitles($title=false)
     {
         $pages = collect();
         if(isset($this->entity->parent->parent)) {
@@ -33,6 +33,9 @@ class PagePresenter extends BasePresenter
         }
         if(isset($this->entity->parent)) {
             $pages->push($this->entity->parent);
+        }
+        if($title) {
+            $pages->push($this->entity);
         }
         return $pages->pluck('title')->implode(' / ');
     }
