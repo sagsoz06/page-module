@@ -86,8 +86,6 @@
                     </div>
                     @endif
                     @tags('asgardcms/page', $page)
-                    @mediaMultiple('pageImage', $page, null, trans('page::pages.form.image'))
-                    @mediaSingle('pageCover', $page, null, trans('page::pages.form.cover'))
                 </div>
             </div>
             @if($currentUser->hasAccess('page.pages.sitemap'))
