@@ -59,7 +59,6 @@ class Page extends Model implements TaggableInterface
         'sitemap_frequency',
         'sitemap_include',
         'uri',
-        'video',
         'settings',
         'permissions'
     ];

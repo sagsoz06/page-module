@@ -24,6 +24,9 @@
                 @include($partial)
             <?php endforeach; ?>
         <?php endif; ?>
+
+        {!! Form::hidden("{$lang}[status]", 0) !!}
+        {!! Form::i18nCheckbox('status', trans('page::pages.form.status'), $errors, $lang, $page) !!}
     </div>
     <div class="box-group" id="accordion">
         <!-- we are adding the .panel class so bootstrap.js collapse plugin detects it -->

@@ -218,6 +218,7 @@ class EloquentPageRepository extends EloquentBaseRepository implements PageRepos
             return $this->model->whereHas('translations', function (Builder $q) use ($uri, $locale) {
                 $q->where('uri', $uri);
                 $q->where('locale', $locale);
+                $q->where('status', 1);
             })->with(['translations','parent','children'])->first();
         }
 

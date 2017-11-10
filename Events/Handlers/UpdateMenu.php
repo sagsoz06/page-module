@@ -14,6 +14,7 @@ class UpdateMenu
                     if($menuItem->hasTranslation($locale)) {
                         $menuItem->translate($locale)->uri = $model->translate($locale)->uri;
                         $menuItem->translate($locale)->title = $model->translate($locale)->title;
+                        $menuItem->translate($locale)->status = $model->translate($locale)->status;
                     }
                 }
                 $menuItem->save();
