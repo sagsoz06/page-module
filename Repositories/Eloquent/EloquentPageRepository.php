@@ -49,8 +49,6 @@ class EloquentPageRepository extends EloquentBaseRepository implements PageRepos
 
         event($event = new PageIsUpdating($model, $data));
 
-        if (!isset($data['permissions'])) $event->setAttributes(['permissions'=>null]);
-
         $model->update($event->getAttributes());
 
         event('page.updateChildrenUri', [$model]);

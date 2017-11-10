@@ -107,6 +107,10 @@ class PageController extends AdminBaseController
      */
     public function update(Page $page, UpdatePageRequest $request)
     {
+        if(!$request->has('permissions')) {
+            $request->request->add(['permissions'=>null]);
+        }
+
         $this->page->update($page, $request->all());
 
         if ($request->get('button') === 'index') {
