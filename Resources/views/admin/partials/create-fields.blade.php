@@ -19,6 +19,15 @@
             <?php endforeach; ?>
         <?php endif; ?>
 
+        <div class="form-group">
+            <div class="checkbox">
+                <label for="{{ $lang }}[status]">
+                    {!! Form::checkbox("{$lang}[status]", old("{$lang}.status", 1), true, ['class'=>'flat-blue']) !!}
+                    {{ trans('page::pages.form.status') }}
+                </label>
+            </div>
+        </div>
+
     </div>
     <div class="box-group" id="accordion">
         <!-- we are adding the .panel class so bootstrap.js collapse plugin detects it -->
