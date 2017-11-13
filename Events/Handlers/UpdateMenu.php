@@ -13,7 +13,9 @@ class UpdateMenu
                 foreach (\LaravelLocalization::getSupportedLocales() as $locale => $supportedLocale) {
                     if($menuItem->hasTranslation($locale)) {
                         $menuItem->translate($locale)->uri = $model->translate($locale)->uri;
-                        $menuItem->translate($locale)->title = $model->translate($locale)->title;
+                        if(isset($model->settings->update_menu)) {
+                            $menuItem->translate($locale)->title = $model->translate($locale)->title;
+                        }
                         $menuItem->translate($locale)->status = $model->translate($locale)->status;
                     }
                 }
