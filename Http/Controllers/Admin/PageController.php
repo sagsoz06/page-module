@@ -9,6 +9,7 @@ use Modules\Page\Entities\Page;
 use Modules\Page\Http\Requests\CreatePageRequest;
 use Modules\Page\Http\Requests\UpdatePageRequest;
 use Modules\Page\Repositories\PageRepository;
+use Modules\Page\Services\PageMenu;
 use Modules\Page\Services\PageRenderer;
 
 class PageController extends AdminBaseController
@@ -25,12 +26,17 @@ class PageController extends AdminBaseController
      * @var MenuRepository
      */
     private $menu;
+    /**
+     * @var PageMenu
+     */
+    private $pageMenu;
 
     public function __construct(
         PageRepository $page,
         PageRenderer $pageRenderer,
         MenuRepository $menu,
-        FileRepository $file
+        FileRepository $file,
+        PageMenu $pageMenu
     )
     {
         parent::__construct();
@@ -39,10 +45,12 @@ class PageController extends AdminBaseController
         $this->file = $file;
         $this->pageRenderer = $pageRenderer;
         $this->menu = $menu;
+        $this->pageMenu = $pageMenu;
 
         $menuLists = $this->menu->menuList();
 
         view()->share('menuLists', $menuLists);
+
 
     }
 
@@ -111,7 +119,9 @@ class PageController extends AdminBaseController
             $request->request->add(['permissions'=>null]);
         }
 
-        $this->page->update($page, $request->all());
+        if($this->page->update($page, $request->all())) {
+            $this->pageMenu->checkMenu($request, $page);
+        }
 
         if ($request->get('button') === 'index') {
             return redirect()->route('admin.page.page.index')

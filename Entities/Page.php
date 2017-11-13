@@ -4,6 +4,7 @@ namespace Modules\Page\Entities;
 
 use Carbon\Carbon;
 use Dimsav\Translatable\Translatable;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Laracasts\Presenter\PresentableTrait;
 use Modules\Core\Traits\NamespacedEntity;
@@ -92,7 +93,9 @@ class Page extends Model implements TaggableInterface
      */
     public function children()
     {
-        return $this->hasMany(Page::class, 'parent_id', 'id');
+        return $this->hasMany(Page::class, 'parent_id', 'id')->whereHas('translations', function(Builder $q) {
+            $q->where('status', 1);
+        });
     }
 
     /**
@@ -100,7 +103,9 @@ class Page extends Model implements TaggableInterface
      */
     public function parent()
     {
-        return $this->belongsTo(Page::class);
+        return $this->belongsTo(Page::class)->whereHas('translations', function(Builder $q) {
+            $q->where('status', 1);
+        });
     }
 
     public function recursiveParent()
