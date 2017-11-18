@@ -54,3 +54,18 @@
         </div>
     </fieldset>
 </div>
+<br/>
+<div class="row">
+    <fieldset>
+        <legend>Sayfa Ayarları</legend>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group{{ $errors->has("settings.password") ? ' has-error' : '' }}">
+                    {!! Form::label("settings.title_bg_color", "Sayfa Şifrele".':') !!}
+                    {!! Form::input('text', 'settings[password]', !isset($page->settings->password) ? '' : $page->settings->password, ['class'=>'form-control']) !!}
+                    {!! $errors->first("settings.password", '<span class="help-block">:message</span>') !!}
+                </div>
+            </div>
+        </div>
+    </fieldset>
+</div>
