@@ -50,6 +50,12 @@
                         &nbsp; İncele Butonu
                     </label>
                 </div>
+                <div class="form-group" style="margin-right: 10px;">
+                    <label>
+                        {!! Form::checkbox("settings[show_logo]", 1, old('settings.show_logo', isset($page->settings->show_logo) ? $page->settings->show_logo : 0), ['class'=>'flat-blue']) !!}
+                        &nbsp; Logo
+                    </label>
+                </div>
             </div>
         </div>
     </fieldset>
