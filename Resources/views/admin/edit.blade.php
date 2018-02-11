@@ -78,6 +78,12 @@
                         {!! Form::select('menu[]', $menuLists, $selectedMenus, ['class'=>'form-control select2', 'multiple'=>'multiple']) !!}
                         {!! $errors->first("menu", '<span class="help-block">:message</span>') !!}
                     </div>
+                    <div class="form-group" style="margin-right: 10px;">
+                        <label>
+                            {!! Form::checkbox("settings[update_menu]", 1, old('settings.update_menu'), ['class'=>'flat-blue']) !!}
+                            &nbsp; Menü Başlığı Güncelle
+                        </label>
+                    </div>
                     @if($currentUser->hasAccess('page.pages.permission'))
                     <div class="form-group">
                         {!! Form::label("permissions", trans('page::pages.form.permissions')) !!}
