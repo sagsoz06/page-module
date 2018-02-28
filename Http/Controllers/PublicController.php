@@ -93,6 +93,7 @@ class PublicController extends BasePublicController
         $this->seo()
             ->setTitle($page->present()->meta_title)
             ->setDescription($page->present()->meta_description)
+            ->setSiteName('')
             ->meta()
             ->setUrl($page->url)
             ->addMeta('robots', $page->robots)
