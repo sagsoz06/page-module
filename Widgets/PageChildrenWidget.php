@@ -11,13 +11,17 @@ class PageChildrenWidget
         $this->page = $page;
     }
 
-    public function register($slug = '')
+    public function register($slug = '', $view='')
     {
         if($page = $this->page->findBySlug($slug))
         {
             if(isset($page->children)) {
                 $children = $page->children()->orderBy('position', 'ASC')->get();
-                return view('page::widgets.children', compact('children'))->render();
+                if(!empty($view)) {
+                    return view('page::widgets.'.$view, compact('children', 'page'))->render();
+                } else {
+                    return view('page::widgets.children', compact('children', 'page'))->render();
+                }
             }
         }
         return false;

@@ -59,6 +59,8 @@ class PageServiceProvider extends ServiceProvider
            $roleRepository = app(RoleRepository::class);
            return view()->share('permissions', $roleRepository->all()->pluck('name','id')->toArray());
         });
+
+        \Widget::register('page-children', 'Modules\Page\Widgets\PageChildrenWidget');
     }
 
     public function boot()
