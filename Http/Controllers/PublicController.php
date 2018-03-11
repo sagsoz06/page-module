@@ -127,7 +127,7 @@ class PublicController extends BasePublicController
         $pages = $this->page->findByTag($slug);
 
         /* Start Seo */
-        $title = trans('tag::tags.tag') . ' : ' . $tag->name;
+        $title = trans('themes::tags.tag', ['tag'=>$tag->name]);
         $this->seo()->setTitle($title)
             ->setDescription($tag->name)
             ->meta()->setUrl(route('page.tag', [$tag->slug]))
