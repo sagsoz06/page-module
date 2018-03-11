@@ -60,7 +60,8 @@ class PageServiceProvider extends ServiceProvider
            return view()->share('permissions', $roleRepository->all()->pluck('name','id')->toArray());
         });
 
-        \Widget::register('page-children', 'Modules\Page\Widgets\PageChildrenWidget');
+        \Widget::register('findChildren', '\Modules\Page\Widgets\PageWidget@children');
+        \Widget::register('findPage', '\Modules\Page\Widgets\PageWidget@findPage');
     }
 
     public function boot()
