@@ -18,7 +18,7 @@ class PageWidget
     public function findPage($slug='', $view='find-page')
     {
         if($page = $this->page->findBySlug($slug)) {
-            return view('page::widgets.'.$view, compact('page'))->render();
+            return view('page::widgets.'.$view, compact('page'));
         }
         return false;
     }
