@@ -1,6 +1,7 @@
 <?php namespace Modules\Page\Presenters;
 
 use Modules\Core\Presenters\BasePresenter;
+use Modules\Page\Entities\Page;
 
 class PagePresenter extends BasePresenter
 {
@@ -12,32 +13,37 @@ class PagePresenter extends BasePresenter
     protected $titleKey = 'title';
     protected $descriptionKey = 'body';
 
-    public function parentUri($lang)
+    public function __construct($entity)
     {
-        $parentUri = '/';
-        if ($this->entity->hasTranslation($lang)) {
-            $parentUri = $this->entity->translate($lang)->slug;
-        }
-        $parentUri = explode('/', $parentUri);
-        array_pop($parentUri);
-        $parentUri = implode('/', $parentUri).'/';
+        parent::__construct($entity);
+        $this->parents = collect();
+    }
 
-        return $parentUri;
+    public function parentSlug()
+    {
+        return $this->_getParentAll($this->entity)->map(function($page){
+            return $page->slug;
+        })->implode('/');
+    }
+
+    private function _getParentAll(Page $page, $current=false)
+    {
+        if($page->parent()->exists()) {
+            $this->parents->push($page->parent);
+            return $this->_getParentAll($page->parent);
+        } else {
+            if($current) {
+                $this->parents->push($page);
+            }
+            return $this->parents;
+        }
     }
 
     public function subTitles($title=false)
     {
-        $pages = collect();
-        if(isset($this->entity->parent->parent)) {
-            $pages->push($this->entity->parent->parent);
-        }
-        if(isset($this->entity->parent)) {
-            $pages->push($this->entity->parent);
-        }
-        if($title) {
-            $pages->push($this->entity);
-        }
-        return $pages->pluck('title')->implode(' / ');
+        return $this->_getParentAll($this->entity, $title)->map(function($page){
+            return $page->slug;
+        })->implode(' / ');
     }
 
     public function coverImage($width, $height, $mode, $quality)
