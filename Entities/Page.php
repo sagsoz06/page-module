@@ -32,7 +32,6 @@ class Page extends Model implements TaggableInterface
         'og_description',
         'og_image',
         'og_type',
-        'uri',
         'sub_title'
     ];
 
@@ -40,7 +39,6 @@ class Page extends Model implements TaggableInterface
         'is_home',
         'template',
         'position',
-        // Translatable fields
         'page_id',
         'parent_id',
         'title',
@@ -59,7 +57,6 @@ class Page extends Model implements TaggableInterface
         'sitemap_priority',
         'sitemap_frequency',
         'sitemap_include',
-        'uri',
         'settings',
         'permissions'
     ];
@@ -155,7 +152,7 @@ class Page extends Model implements TaggableInterface
 
     public function getUrlAttribute()
     {
-        return route('page', [$this->uri]);
+        return route('page', [$this->slug]);
     }
 
     public function hasImage()

@@ -6,45 +6,13 @@ class UriObserver
 {
     public function creating(PageTranslation $model)
     {
-        $parentUri = $this->getParentUri($model);
-
-        if($parentUri) {
-            $uri = $parentUri;
-            if($model->slug) {
-                $uri .= '/'.$model->slug;
-            }
-        } else {
-            $uri = $model->slug;
-        }
-
-        $model->uri = $this->incrementWhileExists($model, $uri);
+        $model->slug = $this->incrementWhileExists($model, $model->slug);
     }
 
     public function updating(PageTranslation $model)
     {
-        $parentUri = $this->getParentUri($model);
-
-        if($parentUri) {
-            $uri = $parentUri;
-            if($model->slug) {
-                $uri .= '/'.$model->slug;
-            }
-        } else {
-            $uri = $model->slug;
-        }
-
-        $model->uri = $this->incrementWhileExists($model, $uri, $model->id);
+        $model->slug = $this->incrementWhileExists($model, $model->slug, $model->id);
     }
-
-    public function getParentUri(PageTranslation $model)
-    {
-        if ($parentPage = $model->page->parent) {
-            if($parentPage->hasTranslation($model->locale)) {
-                return $parentPage->translate($model->locale)->uri;
-            }
-        }
-    }
-
 
     /**
      * @param PageTranslation $model
@@ -54,7 +22,7 @@ class UriObserver
      */
     private function uriExists(PageTranslation $model, $uri, $id)
     {
-        $query = $model->where('uri', $uri)
+        $query = $model->where('slug', $uri)
                        ->where('locale', $model->locale);
         if ($id) {
             $query->where('id', '!=', $id);

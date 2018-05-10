@@ -153,22 +153,6 @@ class CachePageDecorator extends BaseCacheDecorator implements PageRepository
     }
 
     /**
-     * @param $slug
-     * @param $locale
-     * @return mixed
-     */
-    public function findByUriInLocale($uri, $locale)
-    {
-        return $this->cache
-            ->tags([$this->entityName, 'global'])
-            ->remember("{$this->locale}.{$this->entityName}.findByUriInLocale.{$uri}.{$locale}", $this->cacheTime,
-                function () use ($uri, $locale) {
-                    return $this->repository->findBySlugInLocale($uri, $locale);
-                }
-            );
-    }
-
-    /**
      * @param $tag
      * @return mixed
      */

@@ -15,23 +15,23 @@ class PageWidget
         $this->page = $page;
     }
 
-    public function findPage($slug='', $view='find-page')
-    {
-        if($page = $this->page->findBySlug($slug)) {
-            return view('page::widgets.'.$view, compact('page'))->render();
-        }
-        return false;
-    }
-
-    public function children($slug = '', $view='children', $limit=10)
+    public function findBySlug($slug='', $view='find-page')
     {
         if($page = $this->page->findBySlug($slug))
-        {
-            if(isset($page->children)) {
-                $children = $page->children()->orderBy('position', 'ASC')->limit($limit)->get();
-                return view('page::widgets.'.$view, compact('children', 'page'))->render();
-            }
+        return view('page::widgets.'.$view, compact('page'));
+    }
+
+    public function findBySlugChildren($slug = '', $view='children', $limit=10)
+    {
+        if($page = $this->page->findBySlug($slug)) {
+            $children = $page->children()->orderBy('position', 'ASC')->limit($limit)->get();
+            return view('page::widgets.'.$view, compact('children', 'page'));
         }
-        return false;
+    }
+
+    public function findByOptions($option='', $view='page-slider')
+    {
+        $pages = $this->page->all()->where($option, 1);
+        return view('page::widgets.'.$view, compact('pages'));
     }
 }

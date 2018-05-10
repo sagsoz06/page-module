@@ -38,24 +38,19 @@ class PageMenu
     {
         if(!$this->hasMenu($menuId, $page)) {
             $menuItem = new Menuitem();
-            $menuItem->menu_id = $menuId;
-            $menuItem->page_id = $page->id;
-            $menuItem->position = $this->getPositionFormMenu($menuId);
-            $menuItem->target = '_self';
-            $menuItem->link_type = 'page';
-            $menuItem->parent_id = $this->getMenuRoot($menuId);
-            $menuItem->is_root = 0;
+            $menuItem->menu_id      = $menuId;
+            $menuItem->page_id      = $page->id;
+            $menuItem->position     = $this->getPositionFormMenu($menuId);
+            $menuItem->target       = '_self';
+            $menuItem->link_type    = 'page';
+            $menuItem->parent_id    = $this->getMenuRoot($menuId);
+            $menuItem->is_root      = 0;
             foreach (\LaravelLocalization::getSupportedLocales() as $locale => $supportedLocale) {
-                $uri = '';
-                if($page->parent) {
-                    $uri = $page->parent->translate($locale)->uri . '/';
-                }
-                $menuItem->translateOrNew($locale)->locale = $locale;
-                $menuItem->translateOrNew($locale)->status = 1;
-                $menuItem->translateOrNew($locale)->title = $page->translate($locale)->title;
-                $menuItem->translateOrNew($locale)->uri = $uri . $page->translate($locale)->slug;
+                $menuItem->translateOrNew($locale)->locale  = $locale;
+                $menuItem->translateOrNew($locale)->status  = 1;
+                $menuItem->translateOrNew($locale)->title   = $page->translate($locale)->title;
+                $menuItem->translateOrNew($locale)->uri     = $page->translate($locale)->slug;
             }
-
             $menuItem->save();
         }
     }

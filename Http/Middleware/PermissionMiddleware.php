@@ -33,7 +33,7 @@ class PermissionMiddleware
     public function handle(Request $request, Closure $next)
     {
         if($slug = $request->route()->parameter('uri')) {
-            if($page = $this->page->findByUriInLocale($slug, locale())) {
+            if($page = $this->page->findBySlugInLocale($slug, locale())) {
                 if(is_array($page->permissions)) {
                     if($this->auth->check()) {
                         if($this->auth->user()->roles()->whereIn('id', $page->permissions)->count()>0 || $this->auth->user()->hasRoleSlug('admin')) {

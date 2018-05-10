@@ -27,8 +27,6 @@ class EloquentPageRepository extends EloquentBaseRepository implements PageRepos
 
         $page = $this->model->create($event->getAttributes());
 
-        event('page.updateMenuUri', [$page]);
-
         event(new PageWasCreated($page->id, $data, $page));
 
         $page->setTags(array_get($data, 'tags', []));
@@ -50,10 +48,6 @@ class EloquentPageRepository extends EloquentBaseRepository implements PageRepos
         event($event = new PageIsUpdating($model, $data));
 
         $model->update($event->getAttributes());
-
-        event('page.updateChildrenUri', [$model]);
-
-        event('page.updateMenuUri', [$model]);
 
         event(new PageWasUpdated($model->id, $data, $model));
 
@@ -108,6 +102,7 @@ class EloquentPageRepository extends EloquentBaseRepository implements PageRepos
             return $this->model->whereHas('translations', function (Builder $q) use ($slug, $locale) {
                 $q->where('slug', $slug);
                 $q->where('locale', $locale);
+                $q->where('status', 1);
             })->with('translations')->first();
         }
 
@@ -203,24 +198,6 @@ class EloquentPageRepository extends EloquentBaseRepository implements PageRepos
             ->nest()
             ->listsFlattened();
         return [''=>trans('page::pages.form.select page')] + $pages;
-    }
-
-    /**
-     * @param $slug
-     * @param $locale
-     * @return mixed
-     */
-    public function findByUriInLocale($uri, $locale)
-    {
-        if (method_exists($this->model, 'translations')) {
-            return $this->model->whereHas('translations', function (Builder $q) use ($uri, $locale) {
-                $q->where('uri', $uri);
-                $q->where('locale', $locale);
-                $q->where('status', 1);
-            })->with(['translations','parent','children'])->first();
-        }
-
-        return $this->model->where('uri', $uri)->where('locale', $locale)->with(['parent','children'])->first();
     }
 
     /**

@@ -18,34 +18,13 @@ class UpdatePageRequest extends BaseFormRequest
 
     public function translationRules()
     {
-        \Validator::extend('check_uri', function($attributes, $value, $parameters, $validator) {
-            $pageRepository = app(PageRepository::class);
-            if($parent = $pageRepository->find($this->request->get('parent_id'))) {
-                if(isset($parameters[0])) {
-                    $page = $pageRepository->findByUriInLocale($parent->translate($parameters[0])->uri.'/'.$value, $parameters[0]);
-                    if($page) {
-                        if(isset($parameters[1])) {
-                            if($page->id == $parameters[1]) {
-                                return true;
-                            }
-                        }
-                    }
-                    if($page) {
-                        return false;
-                    }
-                }
-            }
-            return true;
-        }, trans('validation.unique'));
-
-
         $id = $this->route()->parameter('page')->id;
         return [
             'title'            => 'required',
-            'slug'             => "required|check_uri:$this->localeKey,$id",
+            "slug"             => "required|unique:page__page_translations,slug,$id,page_id,locale,$this->localeKey",
             'body'             => 'required',
-            'meta_title'       => 'max:55',
-            'meta_description' => 'max:155',
+            'meta_title'       => 'max:70',
+            'meta_description' => 'max:170',
         ];
     }
 

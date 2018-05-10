@@ -157,7 +157,7 @@ class PublicController extends BasePublicController
 //            return $this->page->find($menuItem->page_id);
 //        }
 
-        return $this->page->findByUriInLocale($slug, locale());
+        return $this->page->findBySlugInLocale($slug, locale());
     }
 
     /**

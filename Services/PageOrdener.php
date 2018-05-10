@@ -43,9 +43,7 @@ class PageOrdener
 
         if ($this->hasChildren($item)) {
             $this->handleChildrenForParent($page, $item['children']);
-            event('page.resetChildrenUri', [$page]);
         }
-        event('page.updateMenuUri', [$page]);
     }
 
     /**

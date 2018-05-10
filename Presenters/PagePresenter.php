@@ -8,7 +8,7 @@ class PagePresenter extends BasePresenter
     protected $slug = '';
     protected $transKey = 'page';
     protected $routeKey = '';
-    protected $slugKey = 'uri';
+    protected $slugKey = 'slug';
     protected $titleKey = 'title';
     protected $descriptionKey = 'body';
 
@@ -16,7 +16,7 @@ class PagePresenter extends BasePresenter
     {
         $parentUri = '/';
         if ($this->entity->hasTranslation($lang)) {
-            $parentUri = $this->entity->translate($lang)->uri;
+            $parentUri = $this->entity->translate($lang)->slug;
         }
         $parentUri = explode('/', $parentUri);
         array_pop($parentUri);

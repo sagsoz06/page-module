@@ -41,7 +41,7 @@ class PageRenderer
         foreach ($items as $item) {
             $this->page .= "<li class=\"dd-item\" data-id=\"{$item->id}\">";
             $editLink = URL::route('admin.page.page.edit', [$item->id]);
-            $pageUrl = URL::route('page', [$item->uri]);
+            $pageUrl = URL::route('page', [$item->slug]);
             $style = $item->isRoot() ? 'none' : 'inline';
             $this->page .= <<<HTML
 <div class="btn-group" role="group" aria-label="Action buttons" style="display: {$style}">

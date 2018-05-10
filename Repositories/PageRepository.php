@@ -26,13 +26,6 @@ interface PageRepository extends BaseRepository
     public function findBySlugInLocale($slug, $locale);
 
     /**
-     * @param $slug
-     * @param $locale
-     * @return mixed
-     */
-    public function findByUriInLocale($uri, $locale);
-
-    /**
      * @param $id
      * @param $locale
      * @return object

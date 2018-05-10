@@ -60,8 +60,13 @@ class PageServiceProvider extends ServiceProvider
            return view()->share('permissions', $roleRepository->all()->pluck('name','id')->toArray());
         });
 
-        \Widget::register('findChildren', '\Modules\Page\Widgets\PageWidget@children');
-        \Widget::register('findPage', '\Modules\Page\Widgets\PageWidget@findPage');
+        \Widget::register('findPage', '\Modules\Page\Widgets\PageWidget@findBySlug');
+        \Widget::register('findChildren', '\Modules\Page\Widgets\PageWidget@findBySlugChildren');
+
+        \Widget::register('page', '\Modules\Page\Widgets\PageWidget@findBySlug');
+        \Widget::register('pageChildren', '\Modules\Page\Widgets\PageWidget@findBySlugChildren');
+
+        \Widget::register('pageFindByOptions', '\Modules\Page\Widgets\PageWidget@findByOptions');
     }
 
     public function boot()
@@ -135,9 +140,7 @@ class PageServiceProvider extends ServiceProvider
 
     private function registerEvents()
     {
-        $this->app->events->subscribe(new ResetChildren());
         $this->app->events->subscribe(new UpdateMenu());
-        $this->app->events->subscribe(new UpdateChildren());
         $this->app->events->subscribe(new CheckTranslations());
     }
 
