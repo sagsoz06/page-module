@@ -42,7 +42,7 @@ class PagePresenter extends BasePresenter
     public function subTitles($title=false)
     {
         return $this->_getParentAll($this->entity, $title)->map(function($page){
-            return $page->slug;
+            return $page->title;
         })->implode(' / ');
     }
 

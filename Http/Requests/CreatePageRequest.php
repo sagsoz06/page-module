@@ -20,7 +20,7 @@ class CreatePageRequest extends BaseFormRequest
     {
         return [
             'title'            => 'required',
-            'slug'             => "required|unique:page__page_translations,slug,null,page_id,locale,$this->localeKey",
+            //'slug'             => "required|unique:page__page_translations,slug,null,page_id,locale,$this->localeKey",
             'body'             => 'required',
             'meta_title'       => 'max:70',
             'meta_description' => 'max:170'

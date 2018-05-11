@@ -69,7 +69,7 @@ interface PageRepository extends BaseRepository
      * @param $tag
      * @return mixed
      */
-    public function findByTag($tag);
+    public function findByTag($tag, $perPage);
 
     /**
      * @param $setting

@@ -21,7 +21,7 @@ class UpdatePageRequest extends BaseFormRequest
         $id = $this->route()->parameter('page')->id;
         return [
             'title'            => 'required',
-            "slug"             => "required|unique:page__page_translations,slug,$id,page_id,locale,$this->localeKey",
+            //"slug"             => "required|unique:page__page_translations,slug,$id,page_id,locale,$this->localeKey",
             'body'             => 'required',
             'meta_title'       => 'max:70',
             'meta_description' => 'max:170',

@@ -124,7 +124,7 @@ class PublicController extends BasePublicController
 
         $this->throw404IfNotFound($tag);
 
-        $pages = $this->page->findByTag($slug);
+        $pages = $this->page->findByTag($slug, 6);
 
         /* Start Seo */
         $title = trans('themes::tags.tag', ['tag'=>$tag->name]);
@@ -135,8 +135,8 @@ class PublicController extends BasePublicController
         /* End Seo */
 
         /* Start Breadcrumbs */
-        Breadcrumbs::register('page.tag', function ($breadcrumbs) use ($tag) {
-            $breadcrumbs->push(trans('tag::tags.tag') . ' : ' . $tag->name, $tag->url);
+        Breadcrumbs::register('page.tag', function ($breadcrumbs) use ($tag, $title) {
+            $breadcrumbs->push($title, $tag->url);
         });
         /* End Breadcrumbs */
 

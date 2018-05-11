@@ -156,13 +156,13 @@ class CachePageDecorator extends BaseCacheDecorator implements PageRepository
      * @param $tag
      * @return mixed
      */
-    public function findByTag($tag)
+    public function findByTag($tag, $perPage)
     {
         return $this->cache
             ->tags([$this->entityName, 'global'])
-            ->remember("{$this->locale}.{$this->entityName}.findByTag.{$tag}", $this->cacheTime,
-                function () use ($tag) {
-                    return $this->repository->findByTag($tag);
+            ->remember("{$this->locale}.{$this->entityName}.findByTag.{$tag}.{$perPage}", $this->cacheTime,
+                function () use ($tag, $perPage) {
+                    return $this->repository->findByTag($tag, $perPage);
                 }
             );
     }

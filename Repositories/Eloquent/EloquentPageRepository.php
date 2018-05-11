@@ -204,9 +204,9 @@ class EloquentPageRepository extends EloquentBaseRepository implements PageRepos
      * @param $tag
      * @return mixed
      */
-    public function findByTag($tag)
+    public function findByTag($tag, $perPage=6)
     {
-        return $this->model->whereTag($tag)->with('tags')->get();
+        return $this->model->whereTag($tag)->with('tags')->paginate($perPage);
     }
 
     public function find($id)

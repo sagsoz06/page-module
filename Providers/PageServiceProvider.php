@@ -62,11 +62,11 @@ class PageServiceProvider extends ServiceProvider
 
         \Widget::register('findPage', '\Modules\Page\Widgets\PageWidget@findBySlug');
         \Widget::register('findChildren', '\Modules\Page\Widgets\PageWidget@findBySlugChildren');
-
         \Widget::register('page', '\Modules\Page\Widgets\PageWidget@findBySlug');
         \Widget::register('pageChildren', '\Modules\Page\Widgets\PageWidget@findBySlugChildren');
 
         \Widget::register('pageFindByOptions', '\Modules\Page\Widgets\PageWidget@findByOptions');
+        \Widget::register('pageTags', '\Modules\Page\Widgets\PageWidget@tags');
     }
 
     public function boot()

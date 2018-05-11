@@ -42,21 +42,21 @@ class UriObserver
      * @param null $id
      * @return string|void
      */
-    private function incrementWhileExists(PageTranslation $model, $uri, $id = null)
+    private function incrementWhileExists(PageTranslation $model, $slug, $id = null)
     {
-        if (!$uri) {
+        if (!$slug) {
             return;
         }
 
-        $originalUri = $uri;
+        $originalUri = $slug;
 
         $i = 0;
         // Check if uri is unique
-        while ($this->uriExists($model, $uri, $id)) {
+        while ($this->uriExists($model, $slug, $id)) {
             $i++;
             // increment uri if it exists
-            $uri = $originalUri.'-'.$i;
+            $slug = $originalUri.'-'.$i;
         }
-        return $uri;
+        return $slug;
     }
 }
