@@ -43,7 +43,7 @@ class PageMenu
             $menuItem->position     = $this->getPositionFormMenu($menuId);
             $menuItem->target       = '_self';
             $menuItem->link_type    = 'page';
-            $menuItem->parent_id    = $this->getMenuRoot($menuId);
+            $menuItem->parent_id    = $this->getParentId($menuId, $page);
             $menuItem->is_root      = 0;
             foreach (\LaravelLocalization::getSupportedLocales() as $locale => $supportedLocale) {
                 $menuItem->translateOrNew($locale)->locale  = $locale;
@@ -61,12 +61,26 @@ class PageMenu
         return $position + 1;
     }
 
-    private function getMenuRoot($menuId)
+    private function getParentId($menuId, Page $page)
     {
+        if($id = $this->getParentMenuId($menuId, $page)) {
+            return $id;
+        }
         if($menuItem = Menuitem::where('menu_id', $menuId)->where('is_root', 1)->first()){
             return $menuItem->id;
         }
         return null;
+    }
+
+    private function getParentMenuId($menuId, Page $page)
+    {
+        if($page->parent()->count()>0) {
+            if($this->hasMenu($menuId, $page->parent)) {
+                $menuItem = $this->getMenu($menuId, $page->parent);
+                return $menuItem->id;
+            }
+        }
+        return false;
     }
 
     private function getMenusForPage(Page $page)
@@ -74,12 +88,12 @@ class PageMenu
         return MenuItem::where('page_id', $page->id)->get();
     }
 
-    private function getMenu($menuId, $model) {
-        return Menuitem::where('page_id', $model->id)->where('menu_id', $menuId)->first();
+    private function getMenu($menuId, $page) {
+        return Menuitem::where('page_id', $page->id)->where('menu_id', $menuId)->first();
     }
 
-    private function hasMenu($menuId, $model)
+    private function hasMenu($menuId, $page)
     {
-        return Menuitem::where('page_id', $model->id)->where('menu_id', $menuId)->count() > 0;
+        return Menuitem::where('page_id', $page->id)->where('menu_id', $menuId)->count() > 0;
     }
 }
