@@ -29,15 +29,13 @@ class PageDatabaseSeeder extends Seeder
                 'title' => 'Home page',
                 'slug' => 'home',
                 'body' => '<p><strong>Welcome to Homepage!</strong></p>',
-                'meta_title' => 'Home page',
-                'uri' => 'home'
+                'meta_title' => 'Home page'
             ],
             'tr' => [
                 'title' => 'Anasayfa',
                 'slug' => 'anasayfa',
                 'body' => '<p><strong>Anasayfaya Hoşgeldiniz!</strong></p>',
-                'meta_title' => 'Anasayfa',
-                'uri' => 'anasayfa'
+                'meta_title' => 'Anasayfa'
             ],
         ];
         $this->page->create($data);
