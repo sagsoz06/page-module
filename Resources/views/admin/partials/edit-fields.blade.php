@@ -10,7 +10,7 @@
             {!! Form::label("{$lang}[slug]", trans('page::pages.form.slug')) !!}
             <?php $old = $page->hasTranslation($lang) ? $page->translate($lang)->slug : '' ?>
             <div class="input-group">
-            <span class="input-group-addon">{!! $page->present()->parentSlug !!}</span>
+            <span class="input-group-addon" style="background-color: #ebebeb; font-weight: bold;">{!! $lang.'/'.$page->present()->parentSlug !!}</span>
             {!! Form::text("{$lang}[slug]", old("{$lang}.slug", $old), ['class' => 'form-control slug', 'data-slug' => 'target', 'placeholder' => trans('page::pages.form.slug')]) !!}
             </div>
             {!! $errors->first("{$lang}.slug", '<span class="help-block">:message</span>') !!}

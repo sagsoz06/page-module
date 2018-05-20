@@ -152,7 +152,7 @@ class Page extends Model implements TaggableInterface
 
     public function getUrlAttribute()
     {
-        return route('page', [$this->slug]);
+        return \LaravelLocalization::getLocalizedURL(locale(), route('page', $this->slug));
     }
 
     public function hasImage()
