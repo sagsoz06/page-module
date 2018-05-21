@@ -49,7 +49,7 @@
             </div> {{-- end nav-tabs-custom --}}
         </div>
         <div class="col-md-2">
-            @include('page::admin.partials.settings-fields')
+            @includeIf('page::admin.partials.settings-fields')
             <div class="box box-primary">
                 <div class="box-body">
                     <div class="checkbox{{ $errors->has('is_home') ? ' has-error' : '' }}">
