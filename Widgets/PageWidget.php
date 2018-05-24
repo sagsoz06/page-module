@@ -44,4 +44,10 @@ class PageWidget
         $tags = $page->tags()->take($limit)->get();
         return view('page::widgets.'.$view, compact('tags'));
     }
+
+    public function parentMenu(Page $page, $view='parent-menu', $limit=30)
+    {
+        $pages = $page->children()->get()->sortBy('position')->take($limit);
+        return view('page::widgets.'.$view, compact('pages'));
+    }
 }
