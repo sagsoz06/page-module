@@ -21,7 +21,7 @@ class PagePresenter extends BasePresenter
 
     public function parentSlug()
     {
-        return $this->_getParentAll($this->entity)->map(function($page){
+        return $this->_getParentAll($this->entity)->reverse()->map(function($page){
             return $page->slug;
         })->implode('/');
     }
