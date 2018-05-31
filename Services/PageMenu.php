@@ -76,11 +76,12 @@ class PageMenu
     {
         if($page->parent()->count()>0) {
             if($this->hasMenu($menuId, $page->parent)) {
-                $menuItem = $this->getMenu($menuId, $page->parent);
-                return $menuItem->id;
+                if($menuItem = $this->getMenu($menuId, $page->parent)) {
+                    return $menuItem->id;
+                }
             }
         }
-        return false;
+        return "0";
     }
 
     private function getMenusForPage(Page $page)
