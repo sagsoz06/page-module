@@ -53,4 +53,16 @@ class PagePresenter extends BasePresenter
         }
         return false;
     }
+
+    public function languages($langKey = 'lang', $urlKey = 'url', $sitemap = false)
+    {
+        $languages = collect();
+        foreach (\LaravelLocalization::getSupportedLocales() as $locale => $supportedLocale)
+        {
+            if($this->entity->hasTranslation($locale)) {
+                $languages->push([$langKey => $locale, $urlKey => $this->entity->is_home ? \LaravelLocalization::getLocalizedURL($locale, route('homepage')) : $this->url($locale)]);
+            }
+        }
+        return $languages->toArray();
+    }
 }

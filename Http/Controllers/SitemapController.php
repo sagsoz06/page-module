@@ -30,7 +30,7 @@ class SitemapController extends BaseSitemapController
                 $images[] = ['url' => url($page->present()->firstImage(500,null,'resize',80)), 'title' => $page->title];
             }
             $this->sitemap->add(
-                $page->url,
+                $page->is_home ? \LaravelLocalization::getLocalizedURL(locale(), route('homepage')) : $page->url,
                 $page->updated_at,
                 $page->sitemap_priority,
                 $page->sitemap_frequency,
