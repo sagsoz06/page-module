@@ -48,6 +48,6 @@ class PageWidget
     public function parentMenu(Page $page, $view='parent-menu', $limit=30)
     {
         $pages = $page->children()->get()->sortBy('position')->take($limit);
-        return view('page::widgets.'.$view, compact('pages'));
+        return view('page::widgets.'.$view, compact('pages', 'page'));
     }
 }

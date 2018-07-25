@@ -10,3 +10,6 @@
 <div class="form-group">
     @mediaSingle('pageCover', isset($page) ? $page : null, null, trans('page::pages.form.cover'))
 </div>
+<div class="form-group">
+    @mediaMultiple('pageFiles', isset($page) ? $page : null, null, trans('page::pages.form.file'))
+</div>

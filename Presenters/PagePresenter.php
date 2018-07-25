@@ -65,4 +65,12 @@ class PagePresenter extends BasePresenter
         }
         return $languages->toArray();
     }
+
+    public function files()
+    {
+        if($files = $this->entity->files()->where('zone', 'pageFiles')->get()) {
+            return $files;
+        }
+        return '';
+    }
 }
