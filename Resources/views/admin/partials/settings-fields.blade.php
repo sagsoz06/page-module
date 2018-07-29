@@ -14,22 +14,18 @@
                     <ul class="nav nav-tabs">
                         <li class="active"><a href="#home-box" data-toggle="tab">Anasayfa</a></li>
                         <li><a href="#title" data-toggle="tab">Başlık</a></li>
-                        <li><a href="#sub-menu" data-toggle="tab">Menü</a></li>
-                        <li><a href="#page-list" data-toggle="tab">Sayfa</a></li>
+                        <li><a href="#page" data-toggle="tab">Sayfa</a></li>
                         <li><a href="#images" data-toggle="tab">Resim & Dosya</a></li>
                     </ul>
                     <div class="tab-content">
                         <div class="tab-pane active" id="home-box">
-                            @include('page::admin.partials.settings.home-box')
+                            @include('page::admin.partials.settings.home')
                         </div>
                         <div class="tab-pane" id="title">
                             @include('page::admin.partials.settings.title')
                         </div>
-                        <div class="tab-pane" id="sub-menu">
-                            @include('page::admin.partials.settings.sub-menu')
-                        </div>
-                        <div class="tab-pane" id="page-list">
-                            @include('page::admin.partials.settings.page-list')
+                        <div class="tab-pane" id="page">
+                            @include('page::admin.partials.settings.page')
                         </div>
                         <div class="tab-pane" id="images">
                             @include('page::admin.partials.settings.image')
@@ -45,11 +41,11 @@
 </div>
 
 @push('js-stack')
-<script>
-    jQuery(document).ready(function () {
-        $('.colorpicker').colorpicker();
-    });
-</script>
+    <script>
+        $(function () {
+            $('.colorpicker').colorpicker();
+        });
+    </script>
 @endpush
 
 @push('css-stack')
