@@ -20,10 +20,12 @@ class MenuObserver
     public function deleted(Page $model)
     {
         $this->pageMenu->deleteMenu($model);
+        event('menu.clearCache');
     }
 
     public function updated(Page $model) {
         event('page.updateMenuUri', [$model]);
+        event('menu.clearCache');
     }
 
     public function created(Page $model)
@@ -33,5 +35,6 @@ class MenuObserver
                 $this->pageMenu->createMenu($menu, $model);
             }
         }
+        event('menu.clearCache');
     }
 }
