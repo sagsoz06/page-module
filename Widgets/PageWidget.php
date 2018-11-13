@@ -21,16 +21,16 @@ class PageWidget
         if($page = $this->page->findBySlug($slug)) {
             return view('page::widgets.'.$view, compact('page'));
         }
-        return '';
+        return null;
     }
 
-    public function findBySlugChildren($slug = '', $view='children', $limit=10)
+    public function findBySlugChildren(Page $page, $view='children', $limit=10)
     {
-        if($page = $this->page->findBySlug($slug)) {
+        if($page->children()->count()>0) {
             $children = $page->children()->orderBy('position', 'ASC')->limit($limit)->get();
             return view('page::widgets.'.$view, compact('children', 'page'));
         }
-        return '';
+        return null;
     }
 
     public function findByOptions($option='', $view='page-slider')
@@ -47,7 +47,15 @@ class PageWidget
 
     public function parentMenu(Page $page, $view='parent-menu', $limit=30)
     {
-        $pages = $page->children()->get()->sortBy('position')->take($limit);
-        return view('page::widgets.'.$view, compact('pages', 'page'));
+        if($page->parent()->count()>0) {
+            $page->load('children');
+            $children = $page->parent->children()->get()->sortBy('position')->take($limit);
+            $page = $page->parent()->first();
+            return view('page::widgets.'.$view, compact('children', 'page'));
+        } else if($page->children()->count()>0) {
+            $children = $page->children()->get()->sortBy('position')->take($limit);
+            return view('page::widgets.'.$view, compact('children', 'page'));
+        }
+        return null;
     }
 }

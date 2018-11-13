@@ -68,6 +68,10 @@ class PageServiceProvider extends ServiceProvider
         \Widget::register('pageFindByOptions', '\Modules\Page\Widgets\PageWidget@findByOptions');
         \Widget::register('pageTags', '\Modules\Page\Widgets\PageWidget@tags');
         \Widget::register('parentMenu', '\Modules\Page\Widgets\PageWidget@parentMenu');
+
+        \Blade::directive('homepage', function(){
+           return \LaravelLocalization::getLocalizedURL(locale(), route('homepage'));
+        });
     }
 
     public function boot()
