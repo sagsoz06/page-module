@@ -41,8 +41,11 @@ class PageWidget
 
     public function tags(Page $page, $limit=5, $view='tags')
     {
-        $tags = $page->tags()->take($limit)->get();
-        return view('page::widgets.'.$view, compact('tags'));
+        if($page->tags->count()>0) {
+            $tags = $page->tags()->take($limit)->get();
+            return view('page::widgets.'.$view, compact('tags'));
+        }
+        return null;
     }
 
     public function parentMenu(Page $page, $view='parent-menu', $limit=30)
