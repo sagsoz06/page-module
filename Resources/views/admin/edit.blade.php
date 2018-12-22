@@ -95,32 +95,7 @@
                 </div>
             </div>
             @if($currentUser->hasAccess('page.pages.sitemap'))
-            <div class="box box-primary">
-                <div class="box-body">
-                    <div class="form-group">
-                        {!! Form::hidden("meta_robot_no_index", 'index') !!}
-                        {!! Form::checkbox("meta_robot_no_index", 'noindex', old("meta_robot_no_index", ($page->meta_robot_no_index == 'index' ? 0 : 1)), ['class' => 'flat-blue']) !!}
-                        {!! Form::label("meta_robot_no_index", trans('page::pages.form.meta_robot_no_index')) !!}
-                        {!! $errors->first("meta_robot_no_index", '<span class="help-block">:message</span>') !!}
-                        <br/>
-                        {!! Form::hidden("meta_robot_no_follow", 'follow') !!}
-                        {!! Form::checkbox("meta_robot_no_follow", 'nofollow', old("meta_robot_no_follow", ($page->meta_robot_no_follow == 'follow' ? 0 : 1)), ['class' => 'flat-blue']) !!}
-                        {!! Form::label("meta_robot_no_follow", trans('page::pages.form.meta_robot_no_follow')) !!}
-                        {!! $errors->first("meta_robot_no_follow", '<span class="help-block">:message</span>') !!}
-                        <br/>
-                        {!! Form::hidden("sitemap_include", 0) !!}
-                        {!! Form::checkbox("sitemap_include", 1, old("sitemap_include", ($page->sitemap_include == 1 ? 1 : 0)), ['class' => 'flat-blue']) !!}
-                        {!! Form::label("sitemap_include", trans('core::sitemap.title.include')) !!}
-                        {!! $errors->first("sitemap_include", '<span class="help-block">:message</span>') !!}
-                    </div>
-                    <div class="form-group">
-                        {!! Form::normalSelect('sitemap_frequency', trans('core::sitemap.title.frequency'), $errors, $sitemapFrequencies, $page->sitemap_frequency) !!}
-                    </div>
-                    <div class="form-group">
-                        {!! Form::normalSelect('sitemap_priority', trans('core::sitemap.title.priority'), $errors, $sitemapPriorities, $page->sitemap_priority) !!}
-                    </div>
-                </div>
-            </div>
+                @includeIf('sitemap::admin.partials.robots', ['model'=>$page])
             @endif
         </div>
     </div>

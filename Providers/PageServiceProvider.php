@@ -14,8 +14,6 @@ use Modules\Page\Composers\ThemeAdminAssets;
 use Modules\Page\Entities\Page;
 use Modules\Page\Entities\PageTranslation;
 use Modules\Page\Events\Handlers\CheckTranslations;
-use Modules\Page\Events\Handlers\ResetChildren;
-use Modules\Page\Events\Handlers\UpdateChildren;
 use Modules\Page\Events\Handlers\UpdateMenu;
 use Modules\Page\Facades\PageFacade;
 use Modules\Page\Observers\MenuObserver;
@@ -59,15 +57,6 @@ class PageServiceProvider extends ServiceProvider
            $roleRepository = app(RoleRepository::class);
            return view()->share('permissions', $roleRepository->all()->pluck('name','id')->toArray());
         });
-
-        \Widget::register('findPage', '\Modules\Page\Widgets\PageWidget@findBySlug');
-        \Widget::register('findChildren', '\Modules\Page\Widgets\PageWidget@findBySlugChildren');
-        \Widget::register('page', '\Modules\Page\Widgets\PageWidget@findBySlug');
-        \Widget::register('pageChildren', '\Modules\Page\Widgets\PageWidget@findBySlugChildren');
-
-        \Widget::register('pageFindByOptions', '\Modules\Page\Widgets\PageWidget@findByOptions');
-        \Widget::register('pageTags', '\Modules\Page\Widgets\PageWidget@tags');
-        \Widget::register('parentMenu', '\Modules\Page\Widgets\PageWidget@parentMenu');
 
         \Blade::directive('homepage', function(){
            return \LaravelLocalization::getLocalizedURL(locale(), route('homepage'));
@@ -147,6 +136,15 @@ class PageServiceProvider extends ServiceProvider
     {
         $this->app->events->subscribe(new UpdateMenu());
         $this->app->events->subscribe(new CheckTranslations());
+
+        \Widget::register('findPage', '\Modules\Page\Widgets\PageWidget@findBySlug');
+        \Widget::register('findChildren', '\Modules\Page\Widgets\PageWidget@findBySlugChildren');
+        \Widget::register('page', '\Modules\Page\Widgets\PageWidget@findBySlug');
+        \Widget::register('pageChildren', '\Modules\Page\Widgets\PageWidget@findBySlugChildren');
+
+        \Widget::register('pageFindByOptions', '\Modules\Page\Widgets\PageWidget@findByOptions');
+        \Widget::register('pageTags', '\Modules\Page\Widgets\PageWidget@tags');
+        \Widget::register('parentMenu', '\Modules\Page\Widgets\PageWidget@parentMenu');
     }
 
     private function registerThumbnails()
