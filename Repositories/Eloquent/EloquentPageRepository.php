@@ -225,6 +225,9 @@ class EloquentPageRepository extends EloquentBaseRepository implements PageRepos
      */
     public function findInSettings($setting, $value)
     {
-        return $this->model->whereRaw("settings REGEXP '\"{$setting}\":\"1\"'")->with(['parent', 'children', 'translations'])->get();
+        if(strpos($setting, '.')) {
+            $setting = str_replace('.', '->', $setting);
+        }
+        return $this->model->where($setting, $value)->with(['translations'])->get();
     }
 }
