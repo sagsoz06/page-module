@@ -23,6 +23,8 @@ class PageTranslation extends Model
         'og_type'
     ];
 
+    protected $appends = ['url'];
+
     public function getBodyAttribute($body)
     {
         event($event = new PageContentIsRendering($body));
@@ -35,5 +37,14 @@ class PageTranslation extends Model
     public function page()
     {
         return $this->belongsTo(Page::class, 'page_id', 'id');
+    }
+
+    public function getUrlAttribute()
+    {
+        if($this->page->is_home) {
+            return localize_trans_url($this->locale, 'page::routes.homepage');
+        } else {
+            return localize_trans_url($this->locale, 'page::routes.page.slug', ['uri'=>$this->slug]);
+        }
     }
 }

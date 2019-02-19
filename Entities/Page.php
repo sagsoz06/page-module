@@ -150,14 +150,6 @@ class Page extends Model implements TaggableInterface
         return null;
     }
 
-    public function getUrlAttribute()
-    {
-        if($this->is_home) {
-            return route('homepage');
-        }
-        return route('page', $this->slug);
-    }
-
     public function hasImage()
     {
         return $this->files()->exists();
