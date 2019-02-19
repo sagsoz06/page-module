@@ -18,8 +18,14 @@ class Page extends Model implements TaggableInterface
 {
     use Translatable, TaggableTrait, NamespacedEntity, NestableTrait, PresentableTrait, MediaRelation;
 
+    /**
+     * @var string
+     */
     protected $table = 'page__pages';
 
+    /**
+     * @var array
+     */
     public $translatedAttributes = [
         'page_id',
         'title',
@@ -35,6 +41,9 @@ class Page extends Model implements TaggableInterface
         'sub_title'
     ];
 
+    /**
+     * @var array
+     */
     protected $fillable = [
         'is_home',
         'template',
@@ -61,15 +70,30 @@ class Page extends Model implements TaggableInterface
         'permissions'
     ];
 
+    /**
+     * @var array
+     */
     protected $casts = [
-        'is_home' => 'boolean',
-        'permissions' => 'array'
+        'is_home'     => 'boolean',
+        'permissions' => 'array',
+        'settings'    => 'object'
     ];
 
+    /**
+     * @var string
+     */
     protected $presenter = PagePresenter::class;
 
+    /**
+     * @var string
+     */
     protected static $entityNamespace = 'asgardcms/page';
 
+    /**
+     * @param string $method
+     * @param array $parameters
+     * @return mixed
+     */
     public function __call($method, $parameters)
     {
         #i: Convert array to dot notation
@@ -90,7 +114,7 @@ class Page extends Model implements TaggableInterface
      */
     public function children()
     {
-        return $this->hasMany(Page::class, 'parent_id', 'id')->whereHas('translations', function(Builder $q) {
+        return $this->hasMany(Page::class, 'parent_id', 'id')->whereHas('translations', function (Builder $q) {
             $q->where('status', 1);
         });
     }
@@ -100,16 +124,22 @@ class Page extends Model implements TaggableInterface
      */
     public function parent()
     {
-        return $this->belongsTo(Page::class)->whereHas('translations', function(Builder $q) {
+        return $this->belongsTo(Page::class)->whereHas('translations', function (Builder $q) {
             $q->where('status', 1);
         });
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function recursiveParent()
     {
         return $this->parent()->with('recursiveParent');
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function recursiveChildren()
     {
         return $this->children()->with('recursiveChildren');
@@ -121,12 +151,15 @@ class Page extends Model implements TaggableInterface
      */
     public function isRoot()
     {
-        return (bool) $this->is_root;
+        return (bool)$this->is_root;
     }
 
+    /**
+     * @return bool
+     */
     public function isParent()
     {
-        return (bool) !$this->parent_id;
+        return (bool)!$this->parent_id;
     }
 
     /**
@@ -135,7 +168,7 @@ class Page extends Model implements TaggableInterface
      */
     public function setParentIdAttribute($value)
     {
-        $this->attributes['parent_id'] = ! empty($value) ? $value : null;
+        $this->attributes['parent_id'] = !empty($value) ? $value : null;
     }
 
     /**
@@ -144,21 +177,27 @@ class Page extends Model implements TaggableInterface
      */
     public function getThumbnailAttribute()
     {
-        if(isset($this->files()->first()->filename)) {
+        if (isset($this->files()->first()->filename)) {
             return url(\Imagy::getThumbnail($this->files()->first()->filename, 'pageImage'));
         }
         return null;
     }
 
+    /**
+     * @return false|string
+     */
     public function getUrlAttribute()
     {
-        if($this->is_home) {
+        if ($this->is_home) {
             return localize_trans_url(locale(), 'page::routes.homepage');
         } else {
-            return localize_trans_url(locale(), 'page::routes.page.slug', ['uri'=>$this->slug]);
+            return localize_trans_url(locale(), 'page::routes.page.slug', ['uri' => $this->slug]);
         }
     }
 
+    /**
+     * @return mixed
+     */
     public function hasImage()
     {
         return $this->files()->exists();
@@ -169,32 +208,21 @@ class Page extends Model implements TaggableInterface
      */
     public function getRobotsAttribute()
     {
-        return $this->meta_robot_no_index.', '.$this->meta_robot_no_follow;
+        return $this->meta_robot_no_index . ', ' . $this->meta_robot_no_follow;
     }
 
-    public function setSettingsAttribute($value)
-    {
-        return $this->attributes['settings'] = json_encode($value);
-    }
-
-    public function getSettingsAttribute()
-    {
-        $settings = json_decode($this->attributes['settings']);
-        return $settings;
-    }
-
+    /**
+     * @return mixed|Page|null
+     */
     public function getParentPageAttribute()
     {
-        if(isset($this->parent->parent)) {
+        if (isset($this->parent->parent)) {
             $parent = $this->parent->parent;
-        }
-        elseif(isset($this->parent)) {
+        } elseif (isset($this->parent)) {
             $parent = $this->parent;
-        }
-        elseif(isset($this->children) && count($this->children)>0) {
+        } elseif (isset($this->children) && count($this->children) > 0) {
             $parent = $this;
-        }
-        else {
+        } else {
             $parent = null;
         }
         return $parent;
