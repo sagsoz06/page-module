@@ -150,6 +150,15 @@ class Page extends Model implements TaggableInterface
         return null;
     }
 
+    public function getUrlAttribute()
+    {
+        if($this->is_home) {
+            return localize_trans_url(locale(), 'page::routes.homepage');
+        } else {
+            return localize_trans_url(locale(), 'page::routes.page.slug', ['uri'=>$this->slug]);
+        }
+    }
+
     public function hasImage()
     {
         return $this->files()->exists();
