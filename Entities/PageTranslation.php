@@ -23,8 +23,6 @@ class PageTranslation extends Model
         'og_type'
     ];
 
-    protected $appends = ['url'];
-
     public function getBodyAttribute($body)
     {
         event($event = new PageContentIsRendering($body));
