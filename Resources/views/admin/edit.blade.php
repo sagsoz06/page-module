@@ -32,6 +32,8 @@
                     <?php endforeach; ?>
                     <?php endif; ?>
 
+                    @includeIf('video::admin.partials.video-relation', ['model'=>$page])
+
                     <div class="box-footer">
                         <button type="submit" class="btn btn-primary btn-flat" name="button" value="index" >
                             <i class="fa fa-angle-left"></i>

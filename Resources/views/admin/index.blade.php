@@ -59,7 +59,7 @@
         $(document).ready(function () {
             $('.dd').nestable({
                 collapsedClass: 'dd-collapsed'
-            });
+            }).nestable('collapseAll');
             $('.dd').on('change', function () {
                 var data = $('.dd').nestable('serialize');
                 $.ajax({

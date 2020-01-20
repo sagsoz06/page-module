@@ -48,10 +48,7 @@ class PageController extends AdminBaseController
         $this->pageMenu = $pageMenu;
 
         $menuLists = $this->menu->menuList();
-
         view()->share('menuLists', $menuLists);
-
-
     }
 
     public function index()
@@ -121,6 +118,10 @@ class PageController extends AdminBaseController
 
         if($this->page->update($page, $request->all())) {
             $this->pageMenu->checkMenu($request, $page);
+
+            if(\Module::active('video')) {
+                \VideoRelation::update($page, $request);
+            }
         }
 
         if ($request->get('button') === 'index') {

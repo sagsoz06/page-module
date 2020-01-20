@@ -12,11 +12,12 @@ use Modules\Media\Support\Traits\MediaRelation;
 use Modules\Page\Presenters\PagePresenter;
 use Modules\Tag\Contracts\TaggableInterface;
 use Modules\Tag\Traits\TaggableTrait;
+use Modules\Video\Traits\VideoRelationTrait;
 use TypiCMS\NestableTrait;
 
 class Page extends Model implements TaggableInterface
 {
-    use Translatable, TaggableTrait, NamespacedEntity, NestableTrait, PresentableTrait, MediaRelation;
+    use Translatable, TaggableTrait, NamespacedEntity, NestableTrait, PresentableTrait, MediaRelation, VideoRelationTrait;
 
     /**
      * @var string
