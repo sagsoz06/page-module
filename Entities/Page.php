@@ -2,7 +2,6 @@
 
 namespace Modules\Page\Entities;
 
-use Carbon\Carbon;
 use Dimsav\Translatable\Translatable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
@@ -12,12 +11,12 @@ use Modules\Media\Support\Traits\MediaRelation;
 use Modules\Page\Presenters\PagePresenter;
 use Modules\Tag\Contracts\TaggableInterface;
 use Modules\Tag\Traits\TaggableTrait;
-use Modules\Video\Traits\VideoRelationTrait;
+use Modules\Video\Entities\Media;
 use TypiCMS\NestableTrait;
 
 class Page extends Model implements TaggableInterface
 {
-    use Translatable, TaggableTrait, NamespacedEntity, NestableTrait, PresentableTrait, MediaRelation, VideoRelationTrait;
+    use Translatable, TaggableTrait, NamespacedEntity, NestableTrait, PresentableTrait, MediaRelation;
 
     /**
      * @var string
@@ -227,5 +226,10 @@ class Page extends Model implements TaggableInterface
             $parent = null;
         }
         return $parent;
+    }
+
+    public function videos()
+    {
+        return $this->morphToMany(Media::class, 'relation', 'video__relations');
     }
 }
