@@ -24,7 +24,16 @@ class PageWidget
         return null;
     }
 
-    public function findBySlugChildren(Page $page, $view='children', $limit=10)
+    public function findBySlugChildren($slug, $view='children', $limit=10)
+    {
+        if($page = $this->page->findBySlug($slug)) {
+            $children = $page->children()->orderBy('position', 'ASC')->limit($limit)->get();
+            return view('page::widgets.'.$view, compact('children', 'page'));
+        }
+        return null;
+    }
+
+    public function getChildrenByPage(Page $page, $view='children', $limit=10)
     {
         if($page->children()->count()>0) {
             $children = $page->children()->orderBy('position', 'ASC')->limit($limit)->get();
