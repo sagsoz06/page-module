@@ -119,7 +119,7 @@ class PageController extends AdminBaseController
         if($this->page->update($page, $request->all())) {
             $this->pageMenu->checkMenu($request, $page);
 
-            if(\Module::active('video')) {
+            if(\Module::has('video')) {
                 \VideoRelation::update($page, $request);
             }
         }

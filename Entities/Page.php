@@ -11,7 +11,7 @@ use Modules\Media\Support\Traits\MediaRelation;
 use Modules\Page\Presenters\PagePresenter;
 use Modules\Tag\Contracts\TaggableInterface;
 use Modules\Tag\Traits\TaggableTrait;
-use Modules\Video\Entities\Media;
+//use Modules\Video\Entities\Media;
 use TypiCMS\NestableTrait;
 
 class Page extends Model implements TaggableInterface
@@ -228,8 +228,8 @@ class Page extends Model implements TaggableInterface
         return $parent;
     }
 
-    public function videos()
-    {
-        return $this->morphToMany(Media::class, 'relation', 'video__relations');
-    }
+//    public function videos()
+//    {
+//        return $this->morphToMany(Media::class, 'relation', 'video__relations');
+//    }
 }
