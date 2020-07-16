@@ -59,13 +59,13 @@ class PageWidget
 
     public function parentMenu(Page $page, $view='parent-menu', $limit=30)
     {
-        if($page->parent()->count()>0) {
+        if($page->children()->count()>0) {
             $page->load('children');
-            $children = $page->parent->children()->get()->sortBy('position')->take($limit);
+            $children = $page->children()->get()->sortBy('position')->take($limit);
             $page = $page->parent()->first();
             return view('page::widgets.'.$view, compact('children', 'page'));
-        } else if($page->children()->count()>0) {
-            $children = $page->children()->get()->sortBy('position')->take($limit);
+        } else {
+            $children = $page->parent->children()->get()->sortBy('position')->take($limit);
             return view('page::widgets.'.$view, compact('children', 'page'));
         }
         return null;
