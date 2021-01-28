@@ -33,10 +33,10 @@ class PageWidget
         return null;
     }
 
-    public function getChildrenByPage(Page $page, $view='children', $limit=10)
+    public function getChildrenByPage(Page $page, $view='children', $limit=10, $paginate=10)
     {
         if($page->children()->count()>0) {
-            $children = $page->children()->orderBy('position', 'ASC')->limit($limit)->get();
+            $children = $page->children()->orderBy('position', 'ASC')->limit($limit)->paginate($paginate);
             return view('page::widgets.'.$view, compact('children', 'page'));
         }
         return null;
