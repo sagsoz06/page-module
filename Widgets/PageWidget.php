@@ -24,6 +24,14 @@ class PageWidget
         return null;
     }
 
+    public function findById($id = '', $view = 'find-page')
+    {
+        if($page = $this->page->find($id)) {
+            return view('page::widgets.'.$view, compact('page'));
+        }
+        return null;
+    }
+
     public function findBySlugChildren($slug, $view='children', $limit=10)
     {
         if($page = $this->page->findBySlug($slug)) {

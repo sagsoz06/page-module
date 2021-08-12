@@ -138,6 +138,7 @@ class PageServiceProvider extends ServiceProvider
         $this->app->events->subscribe(new CheckTranslations());
 
         \Widget::register('findPage', '\Modules\Page\Widgets\PageWidget@findBySlug');
+        \Widget::register('findPageId', '\Modules\Page\Widgets\PageWidget@findById');
         \Widget::register('findChildren', '\Modules\Page\Widgets\PageWidget@findBySlugChildren');
         \Widget::register('page', '\Modules\Page\Widgets\PageWidget@findBySlug');
         \Widget::register('pageChildren', '\Modules\Page\Widgets\PageWidget@getChildrenByPage');
