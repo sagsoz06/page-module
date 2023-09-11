@@ -182,4 +182,8 @@ class CachePageDecorator extends BaseCacheDecorator implements PageRepository
                 }
             );
     }
+
+    public function search($query) {
+      return $this->repository->search($query);
+    }
 }

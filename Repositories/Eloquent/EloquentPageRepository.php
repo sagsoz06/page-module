@@ -230,4 +230,9 @@ class EloquentPageRepository extends EloquentBaseRepository implements PageRepos
         }
         return $this->model->where($setting, $value)->with(['translations'])->get();
     }
+
+    public function search($query)
+    {
+      return $this->model->match($query)->get();
+    }
 }
